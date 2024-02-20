@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:25:36 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/02/20 12:47:40 by codespace        ###   ########.fr       */
+/*   Updated: 2024/02/20 13:43:31 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	ft_line(t_coords *coord1, t_coords *coord2, mlx_image_t *image)
 
 	dx = abs(coord2->iso_x - coord1->iso_x);
 	dy = abs(coord2->iso_y - coord1->iso_y);
-	sx = coord1->iso_x < coord2->iso_x ? 1 : -1;
-	sy = coord1->iso_y < coord2->iso_y ? 1 : -1;
+	sx = (coord2->iso_x - coord1->iso_x) / dx;
+	sy = (coord2->iso_y - coord1->iso_y) / dy;
 	err = (dx > dy ? dx : -dy) / 2;
 	while (1)
 	{
