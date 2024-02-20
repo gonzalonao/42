@@ -3,14 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: glopez-c <glopez-c@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:25:36 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/02/14 18:48:35 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/02/20 12:47:40 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fdf.h"
+
+void	ft_show_points(t_coords coord, mlx_image_t* image)
+{
+	while (coord)
+	{
+		mlx_put_pixel(image, (coord->iso_x) + 500, (coord->iso_y) + 500, 0xFF0000FF);
+		coord = coord->next;
+	}
+}
+
+void	ft_line(t_coords *coord1, t_coords *coord2, mlx_image_t *image)
+{
+	int		dx;
+	int		dy;
+	int		sx;
+	int		sy;
+	int		err;
+	int		e2;
+
+	dx = abs(coord2->iso_x - coord1->iso_x);
+	dy = abs(coord2->iso_y - coord1->iso_y);
+	sx = coord1->iso_x < coord2->iso_x ? 1 : -1;
+	sy = coord1->iso_y < coord2->iso_y ? 1 : -1;
+	err = (dx > dy ? dx : -dy) / 2;
+	while (1)
+	{
+		mlx_put_pixel(image, coord1->iso_x, coord1->iso_y, 0xFF0000FF);
+		if (coord1->iso_x == coord2->iso_x && coord1->iso_y == coord2->iso_y)
+			break ;
+		e2 = err;
+		if (e2 > -dx)
+		{
+			err -= dy;
+			coord1->iso_x += sx;
+		}
+		if (e2 < dy)
+		{
+			err += dx;
+			coord1->iso_y += sy;
+		}
+	}
+}
 
 t_coords	*ft_new_coords(t_coords *next)
 {
@@ -30,6 +72,8 @@ int	main(int argc, char **argv)
 	int			j;
 	t_coords	*coords;
 	t_coords	*first;
+	mlx_t		*mlx;
+	mlx_image_t	*image;
 
 	i = 0;
 	if (argc != 2)
@@ -86,4 +130,12 @@ int	main(int argc, char **argv)
 		coords->iso_y = ((coords->x + coords->y) / 2) - coords->z;
 		coords = coords->next;
 	}
-}	
+	mlx = mlx_init(1080, 1080, "Fdf", true);
+	if (!mlx)
+		return (-100);
+	image = mlx_new_image(mlx, 1080, 1080);
+	if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
+		return (-100);
+	ft_show_points(first, image);
+	mlx_loop(mlx);
+}
