@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:25:36 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/02/20 13:43:31 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/02/20 10:47:43 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	ft_show_points(t_coords coord, mlx_image_t* image)
 
 void	ft_line(t_coords *coord1, t_coords *coord2, mlx_image_t *image)
 {
-	int		dx;
-	int		dy;
-	int		sx;
-	int		sy;
-	int		err;
-	int		e2;
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	err;
+	int	e2;
 
 	dx = abs(coord2->iso_x - coord1->iso_x);
 	dy = abs(coord2->iso_y - coord1->iso_y);
