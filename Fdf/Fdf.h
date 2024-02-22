@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: glopez-c <glopez-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:27:35 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/02/20 12:47:40 by codespace        ###   ########.fr       */
+/*   Updated: 2024/02/22 20:48:07 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct s_coords
 	double			iso_x;
 	double			iso_y;
 	struct s_coords	*next;
+	struct s_coords	*right;
+	struct s_coords	*down;
 }					t_coords;
 
 typedef struct s_map

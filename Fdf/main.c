@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: glopez-c <glopez-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:25:36 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/02/20 10:47:43 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/02/22 21:09:45 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,6 @@
 	}
 }*/
 
-void	ft_show_points(t_coords coord, mlx_image_t* image)
-{
-	while (coord)
-	{
-		mlx_put_pixel(image, (coord->iso_x) + 500, (coord->iso_y) + 500, 0xFF0000FF);
-		coord = coord->next;
-	}
-}
-
 void	ft_line(t_coords *coord1, t_coords *coord2, mlx_image_t *image)
 {
 	int	dx;
@@ -49,16 +40,19 @@ void	ft_line(t_coords *coord1, t_coords *coord2, mlx_image_t *image)
 	int	err;
 	int	e2;
 
-	dx = abs(coord2->iso_x - coord1->iso_x);
-	dy = abs(coord2->iso_y - coord1->iso_y);
+	dx = fabs(coord2->iso_x - coord1->iso_x);
+	dy = fabs(coord2->iso_y - coord1->iso_y);
 	sx = (coord2->iso_x - coord1->iso_x) / dx;
 	sy = (coord2->iso_y - coord1->iso_y) / dy;
-	err = (dx > dy ? dx : -dy) / 2;
-	while (1)
+	if (dx > dy)
+		err = dx / 2;
+	else
+		err = -dy / 2;
+	//ft_printf("\n%i%i", coord1->iso_x, coord2->iso_x);
+	while (coord1->iso_x != coord2->iso_x || coord1->iso_y != coord2->iso_y)
 	{
-		mlx_put_pixel(image, coord1->iso_x, coord1->iso_y, 0xFF0000FF);
-		if (coord1->iso_x == coord2->iso_x && coord1->iso_y == coord2->iso_y)
-			break ;
+		mlx_put_pixel(image, coord1->iso_x,
+			coord1->iso_y, 0xFF0000FF);
 		e2 = err;
 		if (e2 > -dx)
 		{
@@ -73,13 +67,61 @@ void	ft_line(t_coords *coord1, t_coords *coord2, mlx_image_t *image)
 	}
 }
 
+void	ft_show_points(t_coords *coord, mlx_image_t *image)
+{
+	while (coord)
+	{
+		//ft_printf("\n%i%i", coord->iso_x, coord->iso_y);
+		mlx_put_pixel(image, coord->iso_x, coord->iso_y, 0xFF0000FF);
+		mlx_put_pixel(image, coord->iso_x+1, coord->iso_y, 0xFF0000FF);
+		mlx_put_pixel(image, coord->iso_x, coord->iso_y+1, 0xFF0000FF);
+		mlx_put_pixel(image, coord->iso_x-1, coord->iso_y, 0xFF0000FF);
+		mlx_put_pixel(image, coord->iso_x, coord->iso_y-1, 0xFF0000FF);
+		if (coord->right)
+			ft_line(coord, coord->right, image);
+		if (coord->down)
+			ft_line(coord, coord->down, image);
+		coord = coord->next;
+	}
+}
+
 t_coords	*ft_new_coords(t_coords *next)
 {
 	t_coords	*coords;
 
 	coords = malloc(sizeof(t_coords) * 1);
 	coords->next = next;
+	coords->right = NULL;
+	coords->down = NULL;
 	return (coords);
+}
+
+t_coords	*ft_find_right(t_coords *coords)
+{
+	t_coords	*right;
+
+	right = coords->next;
+	if (right)
+	{
+		if (right->y == coords->y && right->x == coords->x + 1)
+			return (right);
+		right = right->next;
+	}
+	return (NULL);
+}
+
+t_coords	*ft_find_down(t_coords *coords)
+{
+	t_coords	*down;
+
+	down = coords->next;
+	while (down)
+	{
+		if (down->x == coords->x && down->y == coords->y + 1)
+			return (down);
+		down = down->next;
+	}
+	return (NULL);
 }
 
 int	main(int argc, char **argv)
@@ -145,15 +187,17 @@ int	main(int argc, char **argv)
 	coords = first;
 	while (coords)
 	{
-		coords->iso_x = coords->x - coords->y;
-		coords->iso_y = ((coords->x + coords->y) / 2) - coords->z;
+		coords->iso_x = (coords->x - coords->y) * 20 + 500;
+		coords->iso_y = (((coords->x + coords->y) / 2) - coords->z) * 20 + 500;
+		coords->right = ft_find_right(coords);
+		coords->down = ft_find_down(coords);
 		coords = coords->next;
 	}
 	mlx = mlx_init(1080, 1080, "Fdf", true);
 	if (!mlx)
 		return (-100);
 	image = mlx_new_image(mlx, 1080, 1080);
-	if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
+	if (!image || (mlx_image_to_window(mlx, image, 0, 0) < 0))
 		return (-100);
 	ft_show_points(first, image);
 	mlx_loop(mlx);
