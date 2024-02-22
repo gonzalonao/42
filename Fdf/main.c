@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:25:36 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/02/22 21:09:45 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/02/22 22:04:57 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,29 +40,36 @@ void	ft_line(t_coords *coord1, t_coords *coord2, mlx_image_t *image)
 	int	err;
 	int	e2;
 
-	dx = fabs(coord2->iso_x - coord1->iso_x);
-	dy = fabs(coord2->iso_y - coord1->iso_y);
-	sx = (coord2->iso_x - coord1->iso_x) / dx;
-	sy = (coord2->iso_y - coord1->iso_y) / dy;
+	dx = abs(coord2->x - coord1->x);
+	dy = abs(coord2->y - coord1->y);
+	if (dx != 0)
+		sx = (coord2->x - coord1->x) / dx;
+	else
+		sx = 0;
+	if (dy != 0)
+		sy = (coord2->y - coord1->y) / dy;
+	else
+		sy = 0;
 	if (dx > dy)
 		err = dx / 2;
 	else
 		err = -dy / 2;
-	//ft_printf("\n%i%i", coord1->iso_x, coord2->iso_x);
-	while (coord1->iso_x != coord2->iso_x || coord1->iso_y != coord2->iso_y)
+	ft_printf("hola");
+	while (coord1->x != coord2->x || coord1->y != coord2->y)
 	{
-		mlx_put_pixel(image, coord1->iso_x,
-			coord1->iso_y, 0xFF0000FF);
+		ft_printf("hola");
+		mlx_put_pixel(image, (uint32_t)coord1->x,
+			(uint32_t)coord1->y, 0xFF0000FF);
 		e2 = err;
 		if (e2 > -dx)
 		{
 			err -= dy;
-			coord1->iso_x += sx;
+			coord1->x += sx;
 		}
 		if (e2 < dy)
 		{
 			err += dx;
-			coord1->iso_y += sy;
+			coord1->y += sy;
 		}
 	}
 }
@@ -71,16 +78,22 @@ void	ft_show_points(t_coords *coord, mlx_image_t *image)
 {
 	while (coord)
 	{
-		//ft_printf("\n%i%i", coord->iso_x, coord->iso_y);
-		mlx_put_pixel(image, coord->iso_x, coord->iso_y, 0xFF0000FF);
-		mlx_put_pixel(image, coord->iso_x+1, coord->iso_y, 0xFF0000FF);
-		mlx_put_pixel(image, coord->iso_x, coord->iso_y+1, 0xFF0000FF);
-		mlx_put_pixel(image, coord->iso_x-1, coord->iso_y, 0xFF0000FF);
-		mlx_put_pixel(image, coord->iso_x, coord->iso_y-1, 0xFF0000FF);
+		ft_printf("\nx%iy%i", coord->x, coord->y);
+		mlx_put_pixel(image, coord->x, coord->y, 0xFF0000FF);
+		mlx_put_pixel(image, coord->x+1, coord->y, 0xFF0000FF);
+		mlx_put_pixel(image, coord->x, coord->y+1, 0xFF0000FF);
+		mlx_put_pixel(image, coord->x-1, coord->y, 0xFF0000FF);
+		mlx_put_pixel(image, coord->x, coord->y-1, 0xFF0000FF);
 		if (coord->right)
+		{
 			ft_line(coord, coord->right, image);
+			ft_printf("hola");
+		}
 		if (coord->down)
+		{
 			ft_line(coord, coord->down, image);
+			ft_printf("hola");
+		}
 		coord = coord->next;
 	}
 }
@@ -103,7 +116,7 @@ t_coords	*ft_find_right(t_coords *coords)
 	right = coords->next;
 	if (right)
 	{
-		if (right->y == coords->y && right->x == coords->x + 1)
+		if (right->y == coords->y && right->x == coords->x + 20)
 			return (right);
 		right = right->next;
 	}
@@ -117,7 +130,7 @@ t_coords	*ft_find_down(t_coords *coords)
 	down = coords->next;
 	while (down)
 	{
-		if (down->x == coords->x && down->y == coords->y + 1)
+		if (down->x == coords->x && down->y == coords->y + 20)
 			return (down);
 		down = down->next;
 	}
@@ -167,28 +180,30 @@ int	main(int argc, char **argv)
 		while (split[i][++j])
 			ft_printf(split[i][j]);
 	}
-	i = -1;
+	i = 0;
 	coords = ft_new_coords(NULL);
 	first = coords;
-	while (split[++i])
+	while (split[i])
 	{
-		j = -1;
-		while (split[i][++j])
+		j = 0;
+		while (split[i][j])
 		{
-			coords->x = j;
-			coords->y = i;
+			coords->x = j * 20 + 500;
+			coords->y = i * 20 + 500;
 			coords->z = ft_atoi(split[i][j]);
-			coords->next = ft_new_coords(NULL);
+			if (split[i][j + 1])
+				coords->next = ft_new_coords(NULL);
 			coords = coords->next;
+			j++;
 		}
+		i++;
 	}
 	//	ft_printf("%i%i%i%i%i%i%i%i%i", first->x, first->y, first->z, first->next->x, first->next->y, first->next->z,first->next->next->x, first->next->next->y, first->next->next->z);
-	
 	coords = first;
 	while (coords)
 	{
-		coords->iso_x = (coords->x - coords->y) * 20 + 500;
-		coords->iso_y = (((coords->x + coords->y) / 2) - coords->z) * 20 + 500;
+		coords->iso_x = (coords->x - coords->y) * 20 + 540;
+		coords->iso_y = (((coords->x + coords->y) / 2) - coords->z) * 20 + 540;
 		coords->right = ft_find_right(coords);
 		coords->down = ft_find_down(coords);
 		coords = coords->next;
