@@ -191,7 +191,7 @@ int	main(int argc, char **argv)
 			coords->x = j * 20 + 500;
 			coords->y = i * 20 + 500;
 			coords->z = ft_atoi(split[i][j]);
-			if (split[i][j + 1])
+			if (split[i][j + 1] || split[i + 1])
 				coords->next = ft_new_coords(NULL);
 			coords = coords->next;
 			j++;
