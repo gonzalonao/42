@@ -39,7 +39,10 @@ typedef struct s_map
 {
 	int	width;
 	int	height;
-	int scale;
+	int range_x;
+	int range_y;
+	int offset_x;
+	int offset_y;
 }			t_map;
 
 #endif

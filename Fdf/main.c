@@ -194,8 +194,8 @@ int	main(int argc, char **argv)
 	coords = first;
 	while (coords)
 	{
-		coords->iso_x = (coords->x * 20 - coords->y * 20) + 500;
-		coords->iso_y = (((coords->x * 20 + coords->y * 20) / 2) - coords->z * 20) + 500;
+		coords->iso_x = coords->x - coords->y;
+		coords->iso_y = ((coords->x + coords->y) / 2) - coords->z;
 		coords->right = ft_find_right(coords);
 		coords->down = ft_find_down(coords);
 		coords = coords->next;
@@ -205,8 +205,6 @@ int	main(int argc, char **argv)
 	int	max_x;
 	int	min_y;
 	int	max_y;
-	int	range_x;
-	int	range_y;
 	while (coords)
 	{
 		min_x = fmin(min_x, coords->iso_x);
@@ -215,13 +213,15 @@ int	main(int argc, char **argv)
 		max_y = fmax(max_y, coords->iso_y);
 		coords = coords->next;
 	}
-	range_x = max_x - min_x;
-	range_y = max_y - min_y;
+	map.offset_x = fmax(-min_x, 0);
+	map.offset_y = fmax(-min_y, 0);
+	map.range_x = max_x - min_x;
+	map.range_y = max_y - min_y;
 	coords = first;
 	while (coords)
 	{
-		coords->iso_x = (coords->iso_x - min_x) * 1080 / range_x;
-		coords->iso_y = (coords->iso_y - min_y) * 1080 / range_y;
+		coords->iso_x = (coords->iso_x - min_x) * 1080 / map.range_x;
+		coords->iso_y = (coords->iso_y - min_y) * 1080 / map.range_y;
 		coords = coords->next;
 	}
 	mlx = mlx_init(1080, 1080, "Fdf", true);
