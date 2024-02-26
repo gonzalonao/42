@@ -77,10 +77,10 @@ void	ft_show_points(t_coords *coord, mlx_image_t *image)
 	while (coord)
 	{
 		mlx_put_pixel(image, coord->iso_x, coord->iso_y, 0xFF0000FF);
-		mlx_put_pixel(image, coord->iso_x+1, coord->iso_y, 0xFF0000FF);
-		mlx_put_pixel(image, coord->iso_x, coord->iso_y+1, 0xFF0000FF);
-		mlx_put_pixel(image, coord->iso_x-1, coord->iso_y, 0xFF0000FF);
-		mlx_put_pixel(image, coord->iso_x, coord->iso_y-1, 0xFF0000FF);
+		//mlx_put_pixel(image, coord->iso_x+1, coord->iso_y, 0xFF0000FF);
+		//mlx_put_pixel(image, coord->iso_x, coord->iso_y+1, 0xFF0000FF);
+		//mlx_put_pixel(image, coord->iso_x-1, coord->iso_y, 0xFF0000FF);
+		//mlx_put_pixel(image, coord->iso_x, coord->iso_y-1, 0xFF0000FF);
 		if (coord->down)
 			ft_line(*coord, *coord->down, image);
 		if (coord->right)
@@ -137,6 +137,7 @@ int	main(int argc, char **argv)
 	int			j;
 	t_coords	*coords;
 	t_coords	*first;
+	t_map		map;
 	mlx_t		*mlx;
 	mlx_image_t	*image;
 
@@ -171,6 +172,8 @@ int	main(int argc, char **argv)
 		while (split[i][++j])
 			ft_printf(split[i][j]);
 	}
+	map.width = j;
+	map.height = i;
 	i = -1;
 	coords = ft_new_coords(NULL);
 	first = coords;
@@ -195,6 +198,30 @@ int	main(int argc, char **argv)
 		coords->iso_y = (((coords->x * 20 + coords->y * 20) / 2) - coords->z * 20) + 500;
 		coords->right = ft_find_right(coords);
 		coords->down = ft_find_down(coords);
+		coords = coords->next;
+	}
+	coords = first;
+	int	min_x;
+	int	max_x;
+	int	min_y;
+	int	max_y;
+	int	range_x;
+	int	range_y;
+	while (coords)
+	{
+		min_x = fmin(min_x, coords->iso_x);
+		max_x = fmax(max_x, coords->iso_x);
+		min_y = fmin(min_y, coords->iso_y);
+		max_y = fmax(max_y, coords->iso_y);
+		coords = coords->next;
+	}
+	range_x = max_x - min_x;
+	range_y = max_y - min_y;
+	coords = first;
+	while (coords)
+	{
+		coords->iso_x = (coords->iso_x - min_x) * 1080 / range_x;
+		coords->iso_y = (coords->iso_y - min_y) * 1080 / range_y;
 		coords = coords->next;
 	}
 	mlx = mlx_init(1080, 1080, "Fdf", true);
