@@ -30,6 +30,7 @@ typedef struct s_coords
 	int				z;
 	double			iso_x;
 	double			iso_y;
+	uint32_t		color;
 	struct s_coords	*next;
 	struct s_coords	*right;
 	struct s_coords	*down;
@@ -41,6 +42,7 @@ typedef struct s_map
 	int	height;
 	int range_x;
 	int range_y;
+	int range_z;
 	int offset_x;
 	int offset_y;
 }			t_map;

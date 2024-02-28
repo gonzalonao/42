@@ -31,6 +31,48 @@
 	}
 }*/
 
+uint32_t	ft_generate_color(int z, int min_z, int max_z)
+{
+	double	percentage;
+	uint32_t	color;
+
+	percentage = (double)(z - min_z) / (max_z - min_z);
+	color = 0;
+	color += (uint32_t)(percentage * 255) << 16;
+	color += (uint32_t)(percentage * 255) << 8;
+	color += (uint32_t)(percentage * 255);
+	return (color);
+}
+
+uint32_t	ft_atoi_base(const char *str, const char *base)
+{
+	uint32_t	result;
+	int			sign;
+	int			i;
+	int			j;
+
+	result = 0;
+	sign = 1;
+	i = 0;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	while (str[i] == '-' || str[i] == '+')
+		if (str[i++] == '-')
+			sign *= -1;
+	while (str[i])
+	{
+		j = 0;
+		while (base[j] && str[i] != base[j])
+			j++;
+		if (base[j])
+			result = result * ft_strlen(base) + j;
+		else
+			break ;
+		i++;
+	}
+	return (result * sign);
+}
+
 void	ft_line(t_coords coord1, t_coords coord2, mlx_image_t *image)
 {
 	int	dx;
@@ -133,6 +175,7 @@ int	main(int argc, char **argv)
 	char		*line;
 	int			fd;
 	char		***split;
+	char		**split2;
 	int			i;
 	int			j;
 	t_coords	*coords;
@@ -182,9 +225,14 @@ int	main(int argc, char **argv)
 		j = -1;
 		while (split[i][++j])
 		{
+			split2 = ft_split(split[i][j], ',');
 			coords->x = j;
 			coords->y = i;
 			coords->z = ft_atoi(split[i][j]);
+			if (split2[1] && split2[1][0] == '0' && split2[1][1] == 'x' && ft_strlen(split2[1]) == 10)
+			coords->color = ft_atoi_base(split2[1] + 2, "0123456789ABCDEF");
+			else
+				coords->color = 0;
 			if (split[i][j + 1] || split[i + 1])
 				coords->next = ft_new_coords(NULL);
 			coords = coords->next;
@@ -205,24 +253,38 @@ int	main(int argc, char **argv)
 	int	max_x;
 	int	min_y;
 	int	max_y;
+	int min_z;
+	int max_z;
+
+	min_x = INT_MIN;
+	max_x = INT_MAX;
+	min_y = INT_MIN;
+	max_y = INT_MAX;
+	min_z = INT_MIN;
+	max_z = INT_MAX;
 	while (coords)
 	{
 		min_x = fmin(min_x, coords->iso_x);
 		max_x = fmax(max_x, coords->iso_x);
 		min_y = fmin(min_y, coords->iso_y);
 		max_y = fmax(max_y, coords->iso_y);
+		min_z = fmin(min_z, coords->z);
+		max_z = fmax(max_z, coords->z);
 		coords = coords->next;
 	}
 	map.offset_x = fmax(-min_x, 0);
 	map.offset_y = fmax(-min_y, 0);
 	map.range_x = max_x - min_x;
 	map.range_y = max_y - min_y;
+	map.range_z = max_z - min_z;
 	coords = first;
 	while (coords)
 	{
 		coords->iso_x = (coords->iso_x - min_x) * 1080 / map.range_x;
 		coords->iso_y = (coords->iso_y - min_y) * 1080 / map.range_y;
 		coords = coords->next;
+		if (!coords->color)
+			coords->color = ft_generate_color(coords->z, min_z, max_z);
 	}
 	mlx = mlx_init(1080, 1080, "Fdf", true);
 	if (!mlx)
