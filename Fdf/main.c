@@ -31,17 +31,14 @@
 	}
 }*/
 
-uint32_t	ft_generate_color(int z, int min_z, int max_z)
+uint32_t ft_generate_color(int z, int min_z, int max_z, uint32_t min_color, uint32_t max_color)
 {
-	double	percentage;
-	uint32_t	color;
+	double percentage = (double)(z - min_z) / (max_z - min_z);
+	uint8_t red = ((min_color >> 16) & 0xFF) + (uint8_t)(percentage * (((max_color >> 16) & 0xFF) - ((min_color >> 16) & 0xFF)));
+	uint8_t green = ((min_color >> 8) & 0xFF) + (uint8_t)(percentage * (((max_color >> 8) & 0xFF) - ((min_color >> 8) & 0xFF)));
+	uint8_t blue = (min_color & 0xFF) + (uint8_t)(percentage * ((max_color & 0xFF) - (min_color & 0xFF)));
 
-	percentage = (double)(z - min_z) / (max_z - min_z);
-	color = 0;
-	color += (uint32_t)(percentage * 255) << 16;
-	color += (uint32_t)(percentage * 255) << 8;
-	color += (uint32_t)(percentage * 255);
-	return (color);
+	return (red << 16) | (green << 8) | blue;
 }
 
 uint32_t	ft_atoi_base(const char *str, const char *base)
