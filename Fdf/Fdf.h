@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:27:35 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/02/22 20:48:07 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/02/29 20:37:30 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,16 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
+# include <stdint.h>
+# include <limits.h>
 # include "libft/libft.h"
 # include "MLX42/MLX42.h"
 
 typedef struct s_coords
 {
-	int				x;
-	int				y;
-	int				z;
+	double			x;
+	double			y;
+	double			z;
 	double			iso_x;
 	double			iso_y;
 	uint32_t		color;
