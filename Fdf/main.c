@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:25:36 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/02/29 20:38:28 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/03/04 20:22:12 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,15 +118,16 @@ void	ft_line(t_coords coord1, t_coords coord2, mlx_image_t *image)
 		min = coord2.iso_y;
 		err = -dy / 2;
 	}
-	//ft_printf("hola");
+	//ft_printf("hola1");
 	while (coord1.iso_x != coord2.iso_x || coord1.iso_y != coord2.iso_y)
 	{
 		if (dx > dy)
 			color = ft_generate_color(coord1.iso_x, max, min, coord1.color, coord2.color);
 		else
 			color = ft_generate_color(coord1.iso_y, max, min, coord1.color, coord2.color);
-		if (coord1.iso_x >= 0 && coord1.iso_x < 1080 && coord1.iso_y >= 0 && coord1.iso_y < 1080)
-			mlx_put_pixel(image, coord1.iso_x, coord1.iso_y, color);
+		//if (coord1.iso_x >= 0 && coord1.iso_x < 1080 && coord1.iso_y >= 0 && coord1.iso_y < 1080)
+		printf("Coord x: %f\nCoord y: %f\n", coord1.iso_x, coord1.iso_y);
+		mlx_put_pixel(image, coord1.iso_x, coord1.iso_y, color);
 		e2 = err;
 		if (e2 > -dx)
 		{
@@ -146,10 +147,11 @@ void	ft_show_points(t_coords *coord, mlx_image_t *image)
 	while (coord)
 	{
 		//ft_printf("%i\n%i\n", coord->iso_x, coord->iso_y);
+		printf("Coord x: %f\nCoord y: %f\n", coord->iso_x, coord->iso_y);
 		if (coord->iso_x >= 0 && coord->iso_x < 1080 && coord->iso_y >= 0 && coord->iso_y < 1080)
 		{
 			mlx_put_pixel(image, coord->iso_x, coord->iso_y, coord->color);
-			//ft_printf("hola");
+			//ft_printf("hola2");
 		}
 		//mlx_put_pixel(image, coord->iso_x+1, coord->iso_y, 0xFF0000FF);
 		//mlx_put_pixel(image, coord->iso_x, coord->iso_y+1, 0xFF0000FF);
@@ -261,7 +263,7 @@ int	main(int argc, char **argv)
 			coords->x = j;
 			coords->y = i;
 			coords->z = ft_atoi(split[i][j]);
-			//ft_printf("hola");
+			//ft_printf("hola3");
 			if (split2[1] && split2[1][0] == '0' && split2[1][1] == 'x' && ft_strlen(split2[1]) == 10)
 				coords->color = ft_atoi_base(split2[1] + 2, "0123456789ABCDEF");
 			else
@@ -271,14 +273,14 @@ int	main(int argc, char **argv)
 			coords = coords->next;
 		}
 	}
-	// ft_printf("hola");
+	// ft_printf("hola4");
 	//	ft_printf("%i%i%i%i%i%i%i%i%i", first->x, first->y, first->z, first->next->x, first->next->y, first->next->z,first->next->next->x, first->next->next->y, first->next->next->z);
 	coords = first;
 	while (coords)
 	{
 		coords->iso_x = coords->x - coords->y;
-		coords->iso_y = ((coords->x + coords->y) / 2) - coords->z;
-		printf("Coord x: %f\nCoord y: %f\n", coords->iso_x, coords->iso_y);
+		coords->iso_y = (((double)coords->x + (double)coords->y) / 2) - (double)coords->z;
+		//printf("Coord x: %f\nCoord y: %f\n", coords->iso_x, coords->iso_y);
 		coords->right = ft_find_right(coords);
 		coords->down = ft_find_down(coords);
 		coords = coords->next;
@@ -313,6 +315,7 @@ int	main(int argc, char **argv)
 	map.range_x = max_x - min_x;
 	map.range_y = max_y - min_y;
 	map.range_z = max_z - min_z;
+	map.max_range = fmax(map.range_x, map.range_y);
 	ft_printf("Range_x: %i\n", map.range_x);
 	ft_printf("Range_y: %i\n", map.range_y);
 	ft_printf("Range_z: %i\n", map.range_z);
@@ -321,21 +324,21 @@ int	main(int argc, char **argv)
 	uint32_t min_color = 0x259AFCFF;
 	while (coords)
 	{
-		coords->iso_x = (coords->iso_x * (1080 / map.range_x) - min_x * (1080 / map.range_x));
-		coords->iso_y = (coords->iso_y * (1080 / map.range_y) - min_y * (1080 / map.range_y));
-		//ft_printf("hola");
+		coords->iso_x = (coords->iso_x * (1080 / map.range_x) - (min_x) * (1080 / map.range_x));
+		coords->iso_y = (coords->iso_y * (1080 / map.range_y) - (min_y) * (1080 / map.range_y));
+		//ft_printf("hola5");
 		if (!coords->color)
 			coords->color = ft_generate_color(coords->z, min_z, max_z, max_color, min_color);
 		coords = coords->next;
 	}
-	//ft_printf("hola");
-	mlx = mlx_init(1080, 1080, "Fdf", true);
+	//ft_printf("hola6");
+	mlx = mlx_init(1200, 1200, "Fdf", true);
 	if (!mlx)
 		return (-100);
 	image = mlx_new_image(mlx, 1080, 1080);
 	if (!image || (mlx_image_to_window(mlx, image, 0, 0) < 0))
 		return (-100);
-	//ft_printf("hola");
+	//ft_printf("hola7");
 	ft_show_points(first, image);
 	mlx_loop(mlx);
 }

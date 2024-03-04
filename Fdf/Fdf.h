@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:27:35 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/02/29 20:37:30 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/03/04 19:41:29 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@
 
 typedef struct s_coords
 {
-	double			x;
-	double			y;
-	double			z;
+	int				x;
+	int				y;
+	int				z;
 	double			iso_x;
 	double			iso_y;
 	uint32_t		color;
@@ -45,6 +45,7 @@ typedef struct s_map
 	int range_x;
 	int range_y;
 	int range_z;
+	double max_range;
 	int offset_x;
 	int offset_y;
 }			t_map;
