@@ -33,10 +33,15 @@
 
 uint32_t ft_generate_color(int z, int min_z, int max_z, uint32_t min_color, uint32_t max_color)
 {
-	double percentage = (double)(z - min_z) / (max_z - min_z);
-	uint8_t red = ((min_color >> 16) & 0xFF) + (uint8_t)(percentage * (((max_color >> 16) & 0xFF) - ((min_color >> 16) & 0xFF)));
-	uint8_t green = ((min_color >> 8) & 0xFF) + (uint8_t)(percentage * (((max_color >> 8) & 0xFF) - ((min_color >> 8) & 0xFF)));
-	uint8_t blue = (min_color & 0xFF) + (uint8_t)(percentage * ((max_color & 0xFF) - (min_color & 0xFF)));
+	double percentage;
+	uint8_t red;
+	uint8_t green;
+	uint8_t blue;
+
+	percentage = (double)(z - min_z) / (max_z - min_z);
+	red = ((min_color >> 16) & 0xFF) + (uint8_t)(percentage * (((max_color >> 16) & 0xFF) - ((min_color >> 16) & 0xFF)));
+	green = ((min_color >> 8) & 0xFF) + (uint8_t)(percentage * (((max_color >> 8) & 0xFF) - ((min_color >> 8) & 0xFF)));
+	blue = (min_color & 0xFF) + (uint8_t)(percentage * ((max_color & 0xFF) - (min_color & 0xFF)));
 
 	return ((red << 16) | (green << 8) | blue);
 }
@@ -264,7 +269,7 @@ int	main(int argc, char **argv)
 			coords->y = i;
 			coords->z = ft_atoi(split[i][j]);
 			//ft_printf("hola3");
-			if (split2[1] && split2[1][0] == '0' && split2[1][1] == 'x' && ft_strlen(split2[1]) == 10)
+			if (split2[1] && split2[1][0] == '0' && split2[1][1] == 'x')
 				coords->color = ft_atoi_base(split2[1] + 2, "0123456789ABCDEF");
 			else
 				coords->color = 0;
@@ -324,8 +329,8 @@ int	main(int argc, char **argv)
 	uint32_t min_color = 0x259AFCFF;
 	while (coords)
 	{
-		coords->iso_x = (coords->iso_x * (1080 / map.range_x) - (min_x) * (1080 / map.range_x));
-		coords->iso_y = (coords->iso_y * (1080 / map.range_y) - (min_y) * (1080 / map.range_y));
+		coords->iso_x = round(coords->iso_x * (1080 / map.range_x) - (min_x) * (1080 / map.range_x));
+		coords->iso_y = round(coords->iso_y * (1080 / map.range_y) - (min_y) * (1080 / map.range_y));
 		//ft_printf("hola5");
 		if (!coords->color)
 			coords->color = ft_generate_color(coords->z, min_z, max_z, max_color, min_color);
