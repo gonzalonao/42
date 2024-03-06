@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: glopez-c <glopez-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:25:36 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/03/06 06:06:05 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/03/06 22:34:21 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 	}
 }*/
 
-uint32_t ft_generate_color(int z, int min_z, int max_z, uint32_t min_color, uint32_t max_color)
+uint32_t ft_generate_color(int z, int min_z, int max_z, uint32_t min_color, uint32_t max_color, uint8_t alpha)
 {
     double percentage;
     uint8_t red;
@@ -41,27 +41,27 @@ uint32_t ft_generate_color(int z, int min_z, int max_z, uint32_t min_color, uint
     percentage = (double)(z - min_z) / (max_z - min_z);
     //printf("percentage: %f\n", percentage);
 
-    uint8_t min_red = (min_color >> 16) & 0xFF;
-    uint8_t max_red = (max_color >> 16) & 0xFF;
+    uint8_t min_red = (min_color >> 24) & 0xFF;
+    uint8_t max_red = (max_color >> 24) & 0xFF;
     red = min_red + (uint8_t)(percentage * (max_red - min_red));
     // printf("red: %u\n", red);
     // printf("max_red: %u\n", max_red);
     // printf("min_red: %u\n", min_red);
 
-    uint8_t min_green = (min_color >> 8) & 0xFF;
-    uint8_t max_green = (max_color >> 8) & 0xFF;
+    uint8_t min_green = (min_color >> 16) & 0xFF;
+    uint8_t max_green = (max_color >> 16) & 0xFF;
     green = min_green + (uint8_t)(percentage * (max_green - min_green));
    // printf("max_green2: %u\n", max_green);
    // printf("min_green2: %u\n", min_green);
    // printf("green2: %u\n", green);
 
-    uint8_t min_blue = min_color & 0xFF;
-    uint8_t max_blue = max_color & 0xFF;
+    uint8_t min_blue = (min_color >> 8) & 0xFF;
+    uint8_t max_blue = (max_color >> 8) & 0xFF;
     blue = min_blue + (uint8_t)(percentage * (max_blue - min_blue));
     // printf("blue: %u\n", blue);
     // printf("max_blue: %u\n", max_blue);
     // printf("min_blue: %u\n", min_blue);;
-    return ((red << 16) | (green << 8) | blue);
+    return ((red << 24) | (green << 16) | (blue << 8) | alpha);
 }
 /*
 uint32_t ft_generate_color(int z, int min_z, int max_z, uint32_t min_color, uint32_t max_color)
@@ -79,19 +79,6 @@ uint32_t ft_generate_color(int z, int min_z, int max_z, uint32_t min_color, uint
 	return ((red << 16) | (green << 8) | blue);
 }
 */
-/*{
-	uint32_t max_color;
-	uint32_t min_color;
-
-	max_color = 0xFC25B1FF;
-	min_color = 0x259AFCFF;
-	double percentage = (double)(z - min_z) / (max_z - min_z);
-	uint8_t red = ((min_color >> 16) & 0xFF) + (uint8_t)(percentage * (((max_color >> 16) & 0xFF) - ((min_color >> 16) & 0xFF)));
-	uint8_t green = ((min_color >> 8) & 0xFF) + (uint8_t)(percentage * (((max_color >> 8) & 0xFF) - ((min_color >> 8) & 0xFF)));
-	uint8_t blue = (min_color & 0xFF) + (uint8_t)(percentage * ((max_color & 0xFF) - (min_color & 0xFF)));
-
-	return ((red << 16) | (green << 8) | blue);
-}*/
 
 uint32_t	ft_atoi_base(const char *str, const char *base)
 {
@@ -119,6 +106,7 @@ uint32_t	ft_atoi_base(const char *str, const char *base)
 			break ;
 		i++;
 	}
+	printf("result: %x\n", result);
 	return (result * sign);
 }
 
@@ -161,11 +149,11 @@ void	ft_line(t_coords coord1, t_coords coord2, mlx_image_t *image)
 	while (coord1.iso_x != coord2.iso_x || coord1.iso_y != coord2.iso_y)
 	{
 		if (dx > dy)
-			color = ft_generate_color(coord1.iso_x, max, min, coord1.color, coord2.color);
+			color = ft_generate_color(coord1.iso_x, max, min, coord1.color, coord2.color, 0xFF);
 		else
-			color = ft_generate_color(coord1.iso_y, max, min, coord1.color, coord2.color);
+			color = ft_generate_color(coord1.iso_y, max, min, coord1.color, coord2.color, 0xFF);
 		//if (coord1.iso_x >= 0 && coord1.iso_x < 1080 && coord1.iso_y >= 0 && coord1.iso_y < 1080)
-		printf("Coord x: %f\nCoord y: %f\n", coord1.iso_x, coord1.iso_y);
+		//printf("Coord x: %f\nCoord y: %f\n", coord1.iso_x, coord1.iso_y);
 		mlx_put_pixel(image, coord1.iso_x, coord1.iso_y, color);
 		e2 = err;
 		if (e2 > -dx)
@@ -186,7 +174,7 @@ void	ft_show_points(t_coords *coord, mlx_image_t *image)
 	while (coord)
 	{
 		//ft_printf("%i\n%i\n", coord->iso_x, coord->iso_y);
-		printf("Coord x: %f\nCoord y: %f\n", coord->iso_x, coord->iso_y);
+		//printf("Coord x: %f\nCoord y: %f\n", coord->iso_x, coord->iso_y);
 		if (coord->iso_x >= 0 && coord->iso_x < 1080 && coord->iso_y >= 0 && coord->iso_y < 1080)
 		{
 			mlx_put_pixel(image, coord->iso_x, coord->iso_y, coord->color);
@@ -355,29 +343,46 @@ int	main(int argc, char **argv)
 	map.range_y = max_y - min_y;
 	map.range_z = max_z - min_z;
 	map.max_range = fmax(map.range_x, map.range_y);
-	ft_printf("Range_x: %i\n", map.range_x);
-	ft_printf("Range_y: %i\n", map.range_y);
-	ft_printf("Range_z: %i\n", map.range_z);
+//	ft_printf("Range_x: %i\n", map.range_x);
+//	ft_printf("Range_y: %i\n", map.range_y);
+//	ft_printf("Range_z: %i\n", map.range_z);
 	coords = first;
-	uint32_t max_color = 0xFC25B1FF;
-	uint32_t min_color = 0x259AFCFF;
+	uint32_t max_color = 0xFF0000FF;
+	uint32_t min_color = 0x00FF00FF;
 	while (coords)
 	{
-		coords->iso_x = round(coords->iso_x * (1080 / map.range_x) - (min_x) * (1080 / map.range_x));
-		coords->iso_y = round(coords->iso_y * (1080 / map.range_y) - (min_y) * (1080 / map.range_y));
+		coords->iso_x = round(coords->iso_x * (1080 / map.max_range) - (min_x) * (1080 / map.max_range)) + 20;
+		coords->iso_y = round(coords->iso_y * (1080 / map.max_range) - (min_y) * (1080 / map.max_range)) + 20;
 		//ft_printf("hola5");
 		if (!coords->color)
-			coords->color = ft_generate_color(coords->z, min_z, max_z, max_color, min_color);
+			coords->color = ft_generate_color(coords->z, min_z, max_z, min_color, max_color, 0xFF);
 		coords = coords->next;
 	}
 	//ft_printf("hola6");
 	mlx = mlx_init(1200, 1200, "Fdf", true);
 	if (!mlx)
 		return (-100);
-	image = mlx_new_image(mlx, 1080, 1080);
+	image = mlx_new_image(mlx, 1200, 1200);
 	if (!image || (mlx_image_to_window(mlx, image, 0, 0) < 0))
 		return (-100);
 	//ft_printf("hola7");
+	// uint32_t color = 0xFF0000FF;
+	// mlx_put_pixel(image, 5, 5, color);
+	// mlx_put_pixel(image, 6, 5, color);
+	// mlx_put_pixel(image, 5, 6, color);
+	// mlx_put_pixel(image, 6, 6, color);
+	// mlx_put_pixel(image, 5, 7, color);
+	// mlx_put_pixel(image, 6, 7, color);
+	// mlx_put_pixel(image, 5, 8, color);
+	// mlx_put_pixel(image, 6, 8, color);
+	// mlx_put_pixel(image, 7, 5, color);
+	// mlx_put_pixel(image, 7, 6, color);
+	// mlx_put_pixel(image, 7, 7, color);
+	// mlx_put_pixel(image, 7, 8, color);
+	// mlx_put_pixel(image, 8, 5, color);
+	// mlx_put_pixel(image, 8, 6, color);
+	// mlx_put_pixel(image, 8, 7, color);
+	// mlx_put_pixel(image, 8, 8, color);
 	ft_show_points(first, image);
 	mlx_loop(mlx);
 }
