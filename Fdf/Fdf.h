@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: glopez-c <glopez-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:27:35 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/03/04 19:41:29 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/03/06 03:42:35 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <math.h>
 # include <stdint.h>
 # include <limits.h>
-# include "libft/libft.h"
-# include "MLX42/MLX42.h"
+//# include "libft/libft.h"
+//# include "MLX42/MLX42.h"
 
 typedef struct s_coords
 {

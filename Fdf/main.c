@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: glopez-c <glopez-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:25:36 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/03/04 20:22:12 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/03/06 06:06:05 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,39 @@
 
 uint32_t ft_generate_color(int z, int min_z, int max_z, uint32_t min_color, uint32_t max_color)
 {
+    double percentage;
+    uint8_t red;
+    uint8_t green;
+    uint8_t blue;
+
+    percentage = (double)(z - min_z) / (max_z - min_z);
+    //printf("percentage: %f\n", percentage);
+
+    uint8_t min_red = (min_color >> 16) & 0xFF;
+    uint8_t max_red = (max_color >> 16) & 0xFF;
+    red = min_red + (uint8_t)(percentage * (max_red - min_red));
+    // printf("red: %u\n", red);
+    // printf("max_red: %u\n", max_red);
+    // printf("min_red: %u\n", min_red);
+
+    uint8_t min_green = (min_color >> 8) & 0xFF;
+    uint8_t max_green = (max_color >> 8) & 0xFF;
+    green = min_green + (uint8_t)(percentage * (max_green - min_green));
+   // printf("max_green2: %u\n", max_green);
+   // printf("min_green2: %u\n", min_green);
+   // printf("green2: %u\n", green);
+
+    uint8_t min_blue = min_color & 0xFF;
+    uint8_t max_blue = max_color & 0xFF;
+    blue = min_blue + (uint8_t)(percentage * (max_blue - min_blue));
+    // printf("blue: %u\n", blue);
+    // printf("max_blue: %u\n", max_blue);
+    // printf("min_blue: %u\n", min_blue);;
+    return ((red << 16) | (green << 8) | blue);
+}
+/*
+uint32_t ft_generate_color(int z, int min_z, int max_z, uint32_t min_color, uint32_t max_color)
+{
 	double percentage;
 	uint8_t red;
 	uint8_t green;
@@ -45,6 +78,7 @@ uint32_t ft_generate_color(int z, int min_z, int max_z, uint32_t min_color, uint
 
 	return ((red << 16) | (green << 8) | blue);
 }
+*/
 /*{
 	uint32_t max_color;
 	uint32_t min_color;
