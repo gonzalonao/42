@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: glopez-c <glopez-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:32:36 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/01/23 13:29:14 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:55:01 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,11 @@
 #  define BUFFER_SIZE 42
 # endif
 # ifndef OPEN_MAX
-#  define OPEN_MAX 2048
+#  define OPEN_MAX 4096
 # endif
 
 char	*get_next_line(int fd);
 size_t	ft_strlen(const char *s);
-char	*ft_strdup(char *s1);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: glopez-c <glopez-c@student.42.fr>          +#+  +:+       +#+         #
+#    By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 18:24:00 by glopez-c          #+#    #+#              #
-#    Updated: 2024/02/23 20:36:20 by glopez-c         ###   ########.fr        #
+#    Updated: 2024/03/22 16:18:56 by glopez-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIBFT	:= ./libft
 HEADERS	:= -I $(LIBMLX)/include -I $(LIBFT)
 LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl $(LIBFT)/libft.a
 GLFW 	:= -lglfw
-SRCS	:= main.c
+SRCS	:= main.c colors.c draw.c coords.c transform.c map.c free.c
 OBJS	:= ${SRCS:.c=.o}
 CC		:= gcc
 
@@ -31,7 +31,7 @@ libft:
 	@make re -C $(LIBFT)
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $< \n)"
 
 $(NAME): $(OBJS) libft libmlx
 	@$(CC) $(OBJS) $(LIBS) $(GLFW) $(HEADERS) -o $(NAME)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: glopez-c <glopez-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 22:21:19 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/01/23 13:28:40 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:56:50 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static char	*trim_line(char **gnl)
 	return (res);
 }
 
-int	ft_readline(int fd, char *gnl[256])
+int	ft_readline(int fd, char **gnl)
 {
 	char	*buf;
 	int		i;
