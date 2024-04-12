@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: glopez-c <glopez-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 13:48:13 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/02/06 16:30:51 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/04/08 22:25:49 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*is_command(char *cmd, char **envp)
 void	ft_execute(char *argv, char **envp)
 {
 	char	*path;
-	char	**argv2; 
+	char	**argv2;
 	char	*argv3[4];
 
 	argv2 = ft_split(argv, ' ');
