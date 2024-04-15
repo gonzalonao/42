@@ -3,19 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: glopez-c <glopez-c@student.42malaga.com>   +#+  +:+       +#+         #
+#    By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/23 13:54:05 by glopez-c          #+#    #+#              #
-#    Updated: 2024/02/06 16:40:24 by glopez-c         ###   ########.fr        #
+#    Updated: 2024/04/12 21:12:01 by glopez-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 #NAME_B = pipex_bonus
 
-SRC = pipex.c utils.c
+SRC = paco100.c utils.c
 OBJS = ${SRC:.c=.o}
-MAIN = pipex.c
+MAIN = paco100.c
 
 #SRCS_B = pipex_bonus.c pipex_utils.c
 #OBJS_B = ${SRCS_B:.c=.o}

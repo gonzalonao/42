@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 13:48:21 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/04/12 21:14:09 by glopez-c         ###   ########.fr       */
+/*   Created: 2024/04/15 13:31:24 by glopez-c          #+#    #+#             */
+/*   Updated: 2024/04/15 19:45:39 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
 
-# include <fcntl.h>
-# include <strings.h>
 # include <sys/types.h>
 # include <sys/uio.h>
+# include <unistd.h>
+# include <stdlib.h>
 # include <stdio.h>
-# include <sys/wait.h>
-# include <errno.h>
-# include "libft/libft.h"
 
-void	*ft_free(char **ptr);
-void	*ft_freearray(char ***ptr);
-char	*get_path(char *paths, char **cmd);
+typedef struct s_stack
+{
+	long			value;
+	struct s_stack	*next;
+	struct s_stack	*prev;
+}					t_stack;
 
 #endif
