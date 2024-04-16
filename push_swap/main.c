@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:27:14 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/04/15 21:05:58 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:40:29 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -322,6 +322,26 @@ t_stack	*ft_init_stack(char **split)
 	return (first);
 }
 
+int	ft_check_dups(t_stack *stack)
+{
+	t_stack	*tmp;
+	t_stack	*tmp2;
+
+	tmp = stack;
+	while (tmp)
+	{
+		tmp2 = tmp->next;
+		while (tmp2)
+		{
+			if (tmp->value == tmp2->value)
+				return (1);
+			tmp2 = tmp2->next;
+		}
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	int		i;
@@ -347,11 +367,6 @@ int	main(int argc, char **argv)
 	{
 		printf("Error initializing stack\n");
 		exit(1);
-	}
-	while (stack_a)
-	{
-		printf("%ld\n", stack_a->value);
-		stack_a = stack_a->next;
 	}
 	if (ft_check_dups(stack_a))
 	{
