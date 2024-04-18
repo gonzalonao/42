@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:31:24 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/04/15 19:45:39 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/04/18 11:47:29 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <limits.h>
 
 typedef struct s_stack
 {
@@ -25,5 +26,17 @@ typedef struct s_stack
 	struct s_stack	*next;
 	struct s_stack	*prev;
 }					t_stack;
+
+void	sa(t_stack a);
+void	sb(t_stack b);
+void	ss(t_stack a, t_stack b);
+void	pa(t_stack *a, t_stack *b);
+void	pb(t_stack *a, t_stack *b);
+void	ra(t_stack *a);
+void	rb(t_stack *b);
+void	rr(t_stack *a, t_stack *b);
+void	rra(t_stack *a);
+void	rrb(t_stack *b);
+void	rrr(t_stack *a, t_stack *b);
 
 #endif

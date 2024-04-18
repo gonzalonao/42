@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:27:14 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/04/16 19:40:29 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/04/18 12:41:32 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -322,7 +322,7 @@ t_stack	*ft_init_stack(char **split)
 	return (first);
 }
 
-int	ft_check_dups(t_stack *stack)
+int	ft_check_intdups(t_stack *stack)
 {
 	t_stack	*tmp;
 	t_stack	*tmp2;
@@ -330,6 +330,8 @@ int	ft_check_dups(t_stack *stack)
 	tmp = stack;
 	while (tmp)
 	{
+		if (tmp->value > INT_MAX || tmp->value < INT_MIN)
+			return (2);
 		tmp2 = tmp->next;
 		while (tmp2)
 		{
@@ -342,14 +344,86 @@ int	ft_check_dups(t_stack *stack)
 	return (0);
 }
 
+long	ft_find_next_min(t_stack *stack, unsigned int j)
+{
+	t_stack	*tmp;
+	long	min;
+
+	tmp = stack;
+	min = LONG_MAX;
+	while (tmp)
+	{
+		if (tmp->value < min && tmp->value >= j)
+			min = tmp->value;
+		tmp = tmp->next;
+	}
+	return (min);
+}
+
+void	ft_normalize_stack(t_stack *stack)
+{
+	t_stack	*tmp;
+	long	i;
+	long	j;
+
+	tmp = stack;
+	while (tmp)
+	{
+		tmp->value = tmp->value - INT_MIN;
+		tmp = tmp->next;
+	}
+	i = 0;
+	while (1)
+	{
+		j = ft_find_next_min(stack, i);
+		if (j == LONG_MAX)
+			break ;
+		tmp = stack;
+		while (tmp)
+		{
+			if (tmp->value == j)
+				tmp->value = i++;
+			tmp = tmp->next;
+		}
+	}
+}
+
+long	ft_find_max(t_stack *stack)
+{
+	t_stack	*tmp;
+	long	max;
+
+	tmp = stack;
+	max = LONG_MIN;
+	while (tmp)
+	{
+		if (tmp->value > max)
+			max = tmp->value;
+		tmp = tmp->next;
+	}
+	return (max);
+}
+
+void	ft_print_stack(t_stack *stack)
+{
+	t_stack	*tmp;
+
+	tmp = stack;
+	while (tmp)
+	{
+		printf("%ld\n", tmp->value);
+		tmp = tmp->next;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	int		i;
 	char	**split;
 	t_stack	*stack_a;
 	t_stack	*stack_b;
+	long	max;
 
-	i = 1;
 	if (!ft_check_args(argv, argc))
 	{
 		printf("Wrong arguments\n");
@@ -368,13 +442,21 @@ int	main(int argc, char **argv)
 		printf("Error initializing stack\n");
 		exit(1);
 	}
-	if (ft_check_dups(stack_a))
+	i = ft_check_intdups(stack_a);
+	if (i)
 	{
-		printf("Error: Duplicates\n");
+		if (i == 2)
+			printf("Error: Overflow\n");
+		else
+			printf("Error: Duplicates\n");
 		ft_free_stack(stack_a);
 		exit(1);
 	}
+	ft_normalize_stack(stack_a);
+	max = ft_find_max(stack_a);
 	stack_b = NULL;
+	ft_radix_sort(stack_a, stack_b, max);
 	ft_free_stack(stack_a);
+	ft_free_stack(stack_b);
 	printf("OK\n");
 }
