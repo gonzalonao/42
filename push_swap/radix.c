@@ -6,35 +6,50 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:41:48 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/04/18 12:44:06 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:20:26 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+long	stack_size(t_stack *stack)
+{
+	long	size;
+
+	size = 0;
+	while (stack)
+	{
+		stack = stack->next;
+		size++;
+	}
+	return (size);
+}
+
 void	ft_radix_sort(t_stack *a, t_stack *b, long max)
 {
-	int		i;
-	int		j;
-	int		digit;
+	long	i;
+	long	j;
+	long	size;
 
 	i = 0;
-	max = ft_stack_max(a);
-	while (max > 0)
+	while (i < max)
 	{
 		j = 0;
-		while (j < ft_stack_size(a))
+		size = stack_size(a);
+		while (j < size)
 		{
-			digit = (a->value / i) % 10;
-			if (digit == 0)
-				pb(a, b);
+			if ((a->value >> i) & 1)
+				ra(&a);
 			else
-				ra(a);
+				pb(&a, &b);
+			print_stacks(a, b);
 			j++;
 		}
 		while (b)
-			pa(a, b);
-		i *= 10;
-		max /= 10;
+		{
+			pa(&a, &b);
+			print_stacks(a, b);
+		}
+		i++;
 	}
 }

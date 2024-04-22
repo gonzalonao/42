@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:27:14 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/04/18 12:41:32 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:09:05 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -416,6 +416,26 @@ void	ft_print_stack(t_stack *stack)
 	}
 }
 
+void	print_stacks(t_stack *stack_a, t_stack *stack_b)
+{
+	t_stack	*tmp;
+
+	tmp = stack_a;
+	printf("Stack A:\n");
+	while (tmp)
+	{
+		printf("%ld\n", tmp->value);
+		tmp = tmp->next;
+	}
+	tmp = stack_b;
+	printf("Stack B:\n");
+	while (tmp)
+	{
+		printf("%ld\n", tmp->value);
+		tmp = tmp->next;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	int		i;
@@ -423,6 +443,7 @@ int	main(int argc, char **argv)
 	t_stack	*stack_a;
 	t_stack	*stack_b;
 	long	max;
+	long 	a;
 
 	if (!ft_check_args(argv, argc))
 	{
@@ -453,8 +474,18 @@ int	main(int argc, char **argv)
 		exit(1);
 	}
 	ft_normalize_stack(stack_a);
-	max = ft_find_max(stack_a);
+	a = ft_find_max(stack_a);
+	max = 0;
+	while (a)
+	{
+		a >>= 1;
+		max++;
+		printf("Max: %ld\n", max);
+	}
+	printf("Max: %ld\n", max);
 	stack_b = NULL;
+	print_stacks(stack_a, stack_b);
+	//ra(&stack_a);
 	ft_radix_sort(stack_a, stack_b, max);
 	ft_free_stack(stack_a);
 	ft_free_stack(stack_b);

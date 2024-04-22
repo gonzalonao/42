@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 19:46:36 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/04/16 20:49:58 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:06:04 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	swap(t_stack *stack)
 {
-	t_stack	*tmp;
-
 	if (!stack)
 		return ;
 	if (!stack->next)
@@ -90,7 +88,7 @@ void	rotate(t_stack **stack)
 	last->next = *stack;
 	(*stack)->prev = last;
 	(*stack)->next = NULL;
-	stack = &tmp;
+	*stack = tmp;
 }
 
 void	ra(t_stack **a)
