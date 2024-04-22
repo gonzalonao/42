@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:27:14 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/04/22 18:09:05 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/04/22 20:47:30 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -480,14 +480,14 @@ int	main(int argc, char **argv)
 	{
 		a >>= 1;
 		max++;
-		printf("Max: %ld\n", max);
+		//printf("Max: %ld\n", max);
 	}
-	printf("Max: %ld\n", max);
+	//printf("Max: %ld\n", max);
 	stack_b = NULL;
-	print_stacks(stack_a, stack_b);
+	//print_stacks(stack_a, stack_b);
 	//ra(&stack_a);
 	ft_radix_sort(stack_a, stack_b, max);
 	ft_free_stack(stack_a);
 	ft_free_stack(stack_b);
-	printf("OK\n");
+	//printf("OK\n");
 }

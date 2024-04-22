@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:41:48 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/04/22 18:20:26 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/04/22 20:35:14 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ void	ft_radix_sort(t_stack *a, t_stack *b, long max)
 				ra(&a);
 			else
 				pb(&a, &b);
-			print_stacks(a, b);
+			//print_stacks(a, b);
 			j++;
 		}
 		while (b)
 		{
 			pa(&a, &b);
-			print_stacks(a, b);
+			//print_stacks(a, b);
 		}
 		i++;
 	}
