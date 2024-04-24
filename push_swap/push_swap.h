@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:31:24 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/04/23 18:24:14 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/04/24 21:47:53 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,19 @@ typedef struct s_stack
 void	sa(t_stack *a);
 void	sb(t_stack *b);
 void	ss(t_stack *a, t_stack *b);
-void	pa(t_stack **a, t_stack **b);
-void	pb(t_stack **a, t_stack **b);
-void	ra(t_stack **a);
-void	rb(t_stack **b);
+void	pa(t_stack **a, t_stack **b, char **moves);
+void	pb(t_stack **a, t_stack **b, char **moves);
+void	ra(t_stack **a, char **moves);
+void	rb(t_stack **b, char **moves);
 void	rr(t_stack **a, t_stack **b);
 void	rra(t_stack **a);
 void	rrb(t_stack **b);
 void	rrr(t_stack **a, t_stack **b);
-void	ft_radix_sort(t_stack **a, t_stack **b, long max);
+char	*ft_radix_sort(t_stack **a, t_stack **b, long max);
 void	print_stacks(t_stack *a, t_stack *b);
+char	*add_move(char *moves, char move);
+void	print_moves(char *moves);
+size_t	ft_strlen(const char *s);
+char	*ft_strdup(const char *s1);
 
 #endif

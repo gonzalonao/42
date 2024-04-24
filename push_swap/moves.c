@@ -6,11 +6,52 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 19:46:36 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/04/22 18:06:04 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/04/24 21:46:32 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+char	*add_move(char *moves, char move)
+{
+	char	*new_moves;
+	int		i;
+
+	i = 0;
+	while (moves[i])
+		i++;
+	new_moves = (char *)malloc(sizeof(char) * (i + 2));
+	if (!new_moves)
+		return (NULL);
+	i = -1;
+	while (moves[++i])
+		new_moves[i] = moves[i];
+	new_moves[i] = move;
+	new_moves[i + 1] = '\0';
+	free(moves);
+	return (new_moves);
+}
+
+void	print_moves(char *moves)
+{
+	int	i;
+
+	i = 0;
+	while (moves[i])
+	{
+		if (moves[i] == 'a')
+			write(1, "pa\n", 3);
+		if (moves[i] == 'b')
+			write(1, "pb\n", 3);
+		if (moves[i] == 'r')
+			write(1, "rr\n", 3);
+		if (moves[i] == 'c')
+			write(1, "ra\n", 3);
+		if (moves[i] == 'd')
+			write(1, "rb\n", 3);
+		i++;
+	}
+}
 
 void	swap(t_stack *stack)
 {
@@ -59,16 +100,18 @@ void	push(t_stack **dst, t_stack **src)
 	*dst = tmp;
 }
 
-void	pa(t_stack **a, t_stack **b)
+void	pa(t_stack **a, t_stack **b, char **moves)
 {
 	push(a, b);
-	write(1, "pa\n", 3);
+	//write(1, "pa\n", 3);
+	*moves = add_move(*moves, 'a');
 }
 
-void	pb(t_stack **a, t_stack **b)
+void	pb(t_stack **a, t_stack **b, char **moves)
 {
 	push(b, a);
-	write(1, "pb\n", 3);
+	//write(1, "pb\n", 3);
+	*moves = add_move(*moves, 'b');
 }
 
 void	rotate(t_stack **stack)
@@ -91,16 +134,18 @@ void	rotate(t_stack **stack)
 	*stack = tmp;
 }
 
-void	ra(t_stack **a)
+void	ra(t_stack **a, char **moves)
 {
 	rotate(a);
-	write(1, "ra\n", 3);
+	//write(1, "ra\n", 3);
+	*moves = add_move(*moves, 'c');
 }
 
-void	rb(t_stack **b)
+void	rb(t_stack **b, char **moves)
 {
 	rotate(b);
-	write(1, "rb\n", 3);
+	//write(1, "rb\n", 3);
+	*moves = add_move(*moves, 'd');
 }
 
 void	rr(t_stack **a, t_stack **b)
