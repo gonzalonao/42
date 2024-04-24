@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:31:24 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/04/22 18:10:22 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/04/23 18:24:14 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	rr(t_stack **a, t_stack **b);
 void	rra(t_stack **a);
 void	rrb(t_stack **b);
 void	rrr(t_stack **a, t_stack **b);
-void	ft_radix_sort(t_stack *a, t_stack *b, long max);
+void	ft_radix_sort(t_stack **a, t_stack **b, long max);
 void	print_stacks(t_stack *a, t_stack *b);
 
 #endif

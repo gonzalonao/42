@@ -6,11 +6,24 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:41:48 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/04/22 20:35:14 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:07:26 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	is_sorted(t_stack *a, t_stack *b)
+{
+	if (b)
+		return (0);
+	while (a->next)
+	{
+		if (a->value > a->next->value)
+			return (0);
+		a = a->next;
+	}
+	return (1);
+}
 
 long	stack_size(t_stack *stack)
 {
@@ -25,7 +38,7 @@ long	stack_size(t_stack *stack)
 	return (size);
 }
 
-void	ft_radix_sort(t_stack *a, t_stack *b, long max)
+void	ft_radix_sort(t_stack **a, t_stack **b, long max)
 {
 	long	i;
 	long	j;
@@ -35,21 +48,28 @@ void	ft_radix_sort(t_stack *a, t_stack *b, long max)
 	while (i < max)
 	{
 		j = 0;
-		size = stack_size(a);
-		while (j < size)
+		size = stack_size(*a);
+		if (is_sorted(*a, *b))
+			return ;
+		while (j++ < size)
 		{
-			if ((a->value >> i) & 1)
-				ra(&a);
+			if (((*a)->value >> i) & 1)
+				ra(a);
 			else
-				pb(&a, &b);
-			//print_stacks(a, b);
-			j++;
+				pb(a, b);
 		}
-		while (b)
+		if (++i == max)
 		{
-			pa(&a, &b);
-			//print_stacks(a, b);
+			while (*b)
+				pa(a, b);
 		}
-		i++;
+		size = stack_size(*b);
+		while (size--)
+		{
+			if (((*b)->value >> i) & 1)
+				pa(a, b);
+			else
+				rb(b);
+		}
 	}
 }

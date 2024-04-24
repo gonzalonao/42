@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:27:14 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/04/22 20:47:30 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/04/23 18:48:33 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,6 +264,11 @@ char	**ft_get_split(char **argv, int argc)
 		while (argc--)
 		{
 			split[i] = ft_strdup(argv[i + 1]);
+			if (!split[i])
+			{
+				ft_free_split(split);
+				return (NULL);
+			}
 			i++;
 		}
 		split[i] = NULL;
@@ -480,14 +485,10 @@ int	main(int argc, char **argv)
 	{
 		a >>= 1;
 		max++;
-		//printf("Max: %ld\n", max);
 	}
-	//printf("Max: %ld\n", max);
 	stack_b = NULL;
-	//print_stacks(stack_a, stack_b);
-	//ra(&stack_a);
-	ft_radix_sort(stack_a, stack_b, max);
+	ft_radix_sort(&stack_a, &stack_b, max);
 	ft_free_stack(stack_a);
 	ft_free_stack(stack_b);
-	//printf("OK\n");
+	exit(0);
 }
