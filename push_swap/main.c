@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:27:14 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/04/24 21:27:00 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/04/24 22:24:42 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -489,6 +489,5 @@ int	main(int argc, char **argv)
 	stack_b = NULL;
 	ft_radix_sort(&stack_a, &stack_b, max);
 	ft_free_stack(stack_a);
-	ft_free_stack(stack_b);
 	exit(0);
 }

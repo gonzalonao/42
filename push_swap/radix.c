@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:41:48 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/04/24 22:08:00 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/04/24 22:24:06 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	get_index(char move)
 	return (-4);
 }
 
-char	*simplify_moves(char *moves)
+void	simplify_moves(char *moves)
 {
 	int		i;
 	int		next_move;
@@ -109,10 +109,10 @@ char	*simplify_moves(char *moves)
 		i++;
 	}
 	print_moves(moves);
-	return (moves);
+	free(moves);
 }
 
-char	*ft_radix_sort(t_stack **a, t_stack **b, long max)
+void	ft_radix_sort(t_stack **a, t_stack **b, long max)
 {
 	long	i;
 	long	j;
@@ -121,7 +121,7 @@ char	*ft_radix_sort(t_stack **a, t_stack **b, long max)
 
 	moves = (char *)malloc(sizeof(char) * 1);
 	if (!moves)
-		return (NULL);
+		return ;
 	moves[0] = '\0';
 	i = 0;
 	while (i < max)
@@ -149,7 +149,5 @@ char	*ft_radix_sort(t_stack **a, t_stack **b, long max)
 				rb(b, &moves);
 		}
 	}
-	moves = simplify_moves(moves);
-	//print_moves(moves);
-	return (moves);
+	simplify_moves(moves);
 }
