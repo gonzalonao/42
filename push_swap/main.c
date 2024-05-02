@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:27:14 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/04/25 16:57:11 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/02 20:39:46 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -405,29 +405,34 @@ int	main(int argc, char **argv)
 
 	if (!ft_check_args(argv, argc))
 	{
-		printf("Wrong arguments\n");
+		write(2, "Error\n", 6);
+		//printf("Wrong arguments\n");
 		exit(1);
 	}
 	split = ft_get_split(argv, argc);
 	if (!split)
 	{
-		printf("Error getting split\n");
+		write(2, "Error\n", 6);
+		//printf("Error getting split\n");
 		exit(1);
 	}
 	stack_a = ft_init_stack(split);
 	ft_free_split(split);
 	if (!stack_a)
 	{
-		printf("Error initializing stack\n");
+		write(2, "Error\n", 6);
+		//printf("Error initializing stack\n");
 		exit(1);
 	}
 	i = ft_check_intdups(stack_a);
 	if (i)
 	{
 		if (i == 2)
-			printf("Error: Overflow\n");
+			write(2, "Error\n", 6);
+			//printf("Error: Overflow\n");
 		else
-			printf("Error: Duplicates\n");
+			write(2, "Error\n", 6);
+			//printf("Error: Duplicates\n");
 		ft_free_stack(stack_a);
 		exit(1);
 	}
