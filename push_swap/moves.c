@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 19:46:36 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/04/24 21:46:32 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/02 14:08:49 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,40 +49,49 @@ void	print_moves(char *moves)
 			write(1, "ra\n", 3);
 		if (moves[i] == 'd')
 			write(1, "rb\n", 3);
+		if (moves[i] == 'e')
+			write(1, "sa\n", 3);
+		if (moves[i] == 'f')
+			write(1, "sb\n", 3);
+		if (moves[i] == 'g')
+			write(1, "rra\n", 4);
+		if (moves[i] == 'h')
+			write(1, "rrb\n", 4);
 		i++;
 	}
 }
 
-void	swap(t_stack *stack)
+void	swap(t_stack **stack)
 {
-	if (!stack)
+	if (!(*stack))
 		return ;
-	if (!stack->next)
+	if (!(*stack)->next)
 		return ;
-	stack->prev = stack->next;
-	stack->next = stack->prev->next;
-	stack->prev->next = stack;
-	stack->prev->prev = NULL;
+	(*stack)->prev = (*stack)->next;
+	(*stack)->next = (*stack)->prev->next;
+	(*stack)->prev->next = *stack;
+	(*stack)->prev->prev = NULL;
+	(*stack) = (*stack)->prev;
 }
 
-void	sa(t_stack *a)
+void	sa(t_stack **a, char **moves)
 {
 	swap(a);
-	write(1, "sa\n", 3);
+	*moves = add_move(*moves, 'e');
 }
 
-void	sb(t_stack *b)
+void	sb(t_stack **b, char **moves)
 {
 	swap(b);
-	write(1, "sb\n", 3);
+	*moves = add_move(*moves, 'f');
 }
 
-void	ss(t_stack *a, t_stack *b)
-{
-	swap(a);
-	swap(b);
-	write(1, "ss\n", 3);
-}
+// void	ss(t_stack *a, t_stack *b)
+// {
+// 	swap(a);
+// 	swap(b);
+// 	write(1, "ss\n", 3);
+// }
 
 void	push(t_stack **dst, t_stack **src)
 {
@@ -103,14 +112,12 @@ void	push(t_stack **dst, t_stack **src)
 void	pa(t_stack **a, t_stack **b, char **moves)
 {
 	push(a, b);
-	//write(1, "pa\n", 3);
 	*moves = add_move(*moves, 'a');
 }
 
 void	pb(t_stack **a, t_stack **b, char **moves)
 {
 	push(b, a);
-	//write(1, "pb\n", 3);
 	*moves = add_move(*moves, 'b');
 }
 
@@ -137,14 +144,12 @@ void	rotate(t_stack **stack)
 void	ra(t_stack **a, char **moves)
 {
 	rotate(a);
-	//write(1, "ra\n", 3);
 	*moves = add_move(*moves, 'c');
 }
 
 void	rb(t_stack **b, char **moves)
 {
 	rotate(b);
-	//write(1, "rb\n", 3);
 	*moves = add_move(*moves, 'd');
 }
 
@@ -172,16 +177,16 @@ void	reverse_rotate(t_stack **stack)
 	first->prev = *stack;
 }
 
-void	rra(t_stack **a)
+void	rra(t_stack **a, char **moves)
 {
 	reverse_rotate(a);
-	write(1, "rra\n", 4);
+	*moves = add_move(*moves, 'g');
 }
 
-void	rrb(t_stack **b)
+void	rrb(t_stack **b, char **moves)
 {
 	reverse_rotate(b);
-	write(1, "rrb\n", 4);
+	*moves = add_move(*moves, 'h');
 }
 
 void	rrr(t_stack **a, t_stack **b)

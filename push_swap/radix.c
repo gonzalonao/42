@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:41:48 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/04/24 22:24:06 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/02 14:59:40 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ unsigned char	ft_strcmp(const char *s1, const char *s2)
 
 int	is_sorted(t_stack *a, t_stack *b)
 {
+	//printf("checking sort\n");
 	if (b)
 		return (0);
 	while (a->next)
@@ -34,6 +35,7 @@ int	is_sorted(t_stack *a, t_stack *b)
 			return (0);
 		a = a->next;
 	}
+	//printf("is sorted\n");
 	return (1);
 }
 
@@ -48,15 +50,6 @@ long	stack_size(t_stack *stack)
 		size++;
 	}
 	return (size);
-}
-
-int	is_rotation(char *move)
-{
-	if (!ft_strcmp(move, "ra"))
-		return (1);
-	if (!ft_strcmp(move, "rb"))
-		return (2);
-	return (0);
 }
 
 int	get_next_move(char *moves, int i)
@@ -119,10 +112,27 @@ void	ft_radix_sort(t_stack **a, t_stack **b, long max)
 	long	size;
 	char	*moves;
 
-	moves = (char *)malloc(sizeof(char) * 1);
+	moves = ft_strdup("");
 	if (!moves)
 		return ;
-	moves[0] = '\0';
+	if (stack_size(*a) <= 3)
+	{
+		if (!is_sorted(*a, NULL))
+			sort_3(a, &moves);
+		if (!moves)
+			return ;
+		simplify_moves(moves);
+		return ;
+	}
+	if (stack_size(*a) <= 5)
+	{
+		if (!is_sorted(*a, NULL))	
+			sort_5(a, b, &moves);
+		if (!moves)
+			return ;
+		simplify_moves(moves);
+		return ;
+	}
 	i = 0;
 	while (i < max)
 	{
