@@ -6,11 +6,39 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 20:12:18 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/03 20:13:10 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:23:48 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+char	**ft_get_split(char **argv, int argc)
+{
+	char	**split;
+	int		i;
+
+	i = -1;
+	if (argc == 2)
+		split = ft_split(argv[1], ' ');
+	if (argc > 2)
+	{
+		split = (char **)malloc(sizeof(char *) * (argc - 1));
+		if (!split)
+			return (NULL);
+		while (argc--)
+		{
+			split[i] = ft_strdup(argv[i + 1]);
+			if (!split[i])
+			{
+				ft_free_split(split);
+				return (NULL);
+			}
+			i++;
+		}
+		split[i] = NULL;
+	}
+	return (split);
+}
 
 int	ft_check_intdups(t_stack *stack)
 {
@@ -21,12 +49,12 @@ int	ft_check_intdups(t_stack *stack)
 	while (tmp)
 	{
 		if (tmp->value > INT_MAX || tmp->value < INT_MIN)
-			return (2);
+			return (4);
 		tmp2 = tmp->next;
 		while (tmp2)
 		{
 			if (tmp->value == tmp2->value)
-				return (1);
+				return (5);
 			tmp2 = tmp2->next;
 		}
 		tmp = tmp->next;
@@ -60,5 +88,5 @@ int	ft_check_args(char **argv, int argc)
 			if (!ft_is_num(argv[argc]))
 				return (0);
 	}
-	return (1);
+	return (i);
 }

@@ -6,27 +6,14 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:41:48 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/02 14:59:40 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/06 14:49:41 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-unsigned char	ft_strcmp(const char *s1, const char *s2)
-{
-	if (!s1 || !s2)
-		return (1);
-	while (*s1 && *s2 && *s1 == *s2)
-	{
-		s1++;
-		s2++;
-	}
-	return (*(unsigned char *)s1 - *(unsigned char *)s2);
-}
-
 int	is_sorted(t_stack *a, t_stack *b)
 {
-	//printf("checking sort\n");
 	if (b)
 		return (0);
 	while (a->next)
@@ -35,7 +22,6 @@ int	is_sorted(t_stack *a, t_stack *b)
 			return (0);
 		a = a->next;
 	}
-	//printf("is sorted\n");
 	return (1);
 }
 
@@ -126,7 +112,7 @@ void	ft_radix_sort(t_stack **a, t_stack **b, long max)
 	}
 	if (stack_size(*a) <= 5)
 	{
-		if (!is_sorted(*a, NULL))	
+		if (!is_sorted(*a, NULL))
 			sort_5(a, b, &moves);
 		if (!moves)
 			return ;

@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:31:24 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/03 20:10:45 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:10:13 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,11 @@ void	ft_free_split(char **split);
 void	ft_free_stack(t_stack *stack);
 int		ft_isdigit(int c);
 int		ft_is_num(char *str);
+int		ft_check_intdups(t_stack *stack);
+int		ft_check_args(char **argv, int argc);
+char	**ft_get_split(char **argv, int argc);
+t_stack	*ft_init_stack(char **split);
+long	ft_find_max(t_stack *stack);
+void	ft_normalize_stack(t_stack *stack);
 
 #endif
