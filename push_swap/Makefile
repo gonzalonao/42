@@ -6,7 +6,7 @@
 #    By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 17:23:27 by glopez-c          #+#    #+#              #
-#    Updated: 2024/04/25 16:56:44 by glopez-c         ###   ########.fr        #
+#    Updated: 2024/05/03 20:12:47 by glopez-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ AR = ar rcs
 
 RM = rm -f
 
-SRCS = moves.c main.c radix.c sort_5.c
+SRCS = moves.c main.c radix.c sort_5.c ft_split.c utils.c free_utils.c arg_checks.c
 
 OBJS = $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:31:24 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/02 14:29:09 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/03 20:10:45 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,13 @@ void	sort_3(t_stack **a, char **moves);
 void	sort_5(t_stack **a, t_stack **b, char **moves);
 int		is_sorted(t_stack *a, t_stack *b);
 long	stack_size(t_stack *stack);
+char	**ft_split(char const *s, char c);
+size_t	ft_strlen(const char *s);
+char	*ft_strdup(const char *s1);
+long	ft_atol(const char *str);
+void	ft_free_split(char **split);
+void	ft_free_stack(t_stack *stack);
+int		ft_isdigit(int c);
+int		ft_is_num(char *str);
 
 #endif
