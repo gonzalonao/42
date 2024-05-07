@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 22:36:09 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/04/24 22:36:47 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/07 20:08:31 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	ft_fillsplit(char **split, char const *s, char c)
 			j = i;
 			while (s[i] != c && s[i])
 				i++;
-			split[k] = (char *)malloc(sizeof(char) * (i - j + 1));
+			split[k] = (char *)ft_calloc(i - j + 1, sizeof(char));
 			if (!split[k])
 				return (k);
 			ft_strwrite(split[k], s + j, c);
@@ -72,7 +72,7 @@ char	**ft_split(char const *s, char c)
 	int		j;
 
 	k = ft_count_words(s, c);
-	split = (char **)malloc((sizeof(char *)) * (k + 1));
+	split = (char **)ft_calloc(k + 1, sizeof(char *));
 	if (!split)
 		return (NULL);
 	j = ft_fillsplit(split, s, c);

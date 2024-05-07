@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   str_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 22:37:21 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/04/24 22:37:34 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/07 20:09:36 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_strdup(const char *s1)
 	size_t	i;
 
 	i = ft_strlen(s1);
-	str = (char *)malloc((i + 1) * sizeof(char));
+	str = (char *)ft_calloc(i + 1, sizeof(char));
 	if (!str)
 		return (NULL);
 	i = -1;

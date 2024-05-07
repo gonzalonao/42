@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   innit_stacks.c                                     :+:      :+:    :+:   */
+/*   init_stacks.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:56:35 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/06 14:58:15 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/07 20:08:54 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_stack	*ft_new_node(long value)
 {
 	t_stack	*stack;
 
-	stack = (t_stack *)malloc(sizeof(t_stack));
+	stack = (t_stack *)ft_calloc(1, sizeof(t_stack));
 	if (!stack)
 		return (NULL);
 	stack->value = value;

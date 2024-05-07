@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:03:41 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/07 15:07:37 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/07 20:55:29 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	*add_move(char *moves, char move)
 	i = 0;
 	while (moves[i])
 		i++;
-	new_moves = (char *)malloc(sizeof(char) * (i + 2));
+	new_moves = (char *)ft_calloc(i + 2, sizeof(char));
 	if (!new_moves)
 		return (NULL);
 	i = -1;

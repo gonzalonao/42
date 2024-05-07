@@ -6,7 +6,7 @@
 #    By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 17:23:27 by glopez-c          #+#    #+#              #
-#    Updated: 2024/05/07 15:45:25 by glopez-c         ###   ########.fr        #
+#    Updated: 2024/05/07 20:12:43 by glopez-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ AR = ar rcs
 RM = rm -f
 
 SRCS = moves.c main.c radix.c sort_5.c ft_split.c\
-	 str_utils.c free_utils.c arg_checks.c init_stacks.c\
+	 str_utils.c memory_utils.c arg_checks.c init_stacks.c\
 	 moves_utils.c stack_utils.c
 	 
 
@@ -27,7 +27,7 @@ CC = gcc
 CCFLAGS = -Wall -Wextra -Werror
 
 %.o: %.c push_swap.h
-	${CC} ${CCFLAGS} -I. -c $< -o ${<:.c=.o}
+	${CC} ${CCFLAGS} -I. -g -c $< -o ${<:.c=.o}
 
 all:  ${NAME}
 

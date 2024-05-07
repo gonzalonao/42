@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:42:29 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/07 15:45:11 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/07 19:55:10 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,5 @@ long	stack_size(t_stack *stack)
 		stack = stack->next;
 		size++;
 	}
-	ret
+	return (size);
+}

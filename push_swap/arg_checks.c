@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 20:12:18 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/07 09:55:10 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/07 20:10:03 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**ft_get_split(char **argv, int argc)
 		split = ft_split(argv[1], ' ');
 	if (argc > 2)
 	{
-		split = (char **)malloc(sizeof(char *) * (argc - 1));
+		split = (char **)ft_calloc(argc - 1, sizeof(char *));
 		if (!split)
 			return (NULL);
 		while (argc--)

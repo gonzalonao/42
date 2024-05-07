@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:31:24 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/07 15:06:41 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/07 20:16:27 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	rrr(t_stack **a, t_stack **b);
 void	ft_radix_sort(t_stack **a, t_stack **b, long max);
 void	print_stacks(t_stack *a, t_stack *b);
 char	*add_move(char *moves, char move);
-void	print_moves(char *moves);
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s1);
 void	sort_3(t_stack **a, char **moves);
@@ -67,5 +66,8 @@ void	simplify_moves(char *moves);
 int		get_next_move(char *moves, int i);
 void	print_moves(char *moves);
 char	*add_move(char *moves, char move);
+int		is_sorted(t_stack *a, t_stack *b);
+long	stack_size(t_stack *stack);
+void	*ft_calloc(size_t count, size_t size);
 
 #endif

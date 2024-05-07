@@ -6,37 +6,11 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:41:48 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/07 15:26:56 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/07 19:57:43 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int	is_sorted(t_stack *a, t_stack *b)
-{
-	if (b)
-		return (0);
-	while (a->next)
-	{
-		if (a->value > a->next->value)
-			return (0);
-		a = a->next;
-	}
-	return (1);
-}
-
-long	stack_size(t_stack *stack)
-{
-	long	size;
-
-	size = 0;
-	while (stack)
-	{
-		stack = stack->next;
-		size++;
-	}
-	return (size);
-}
 
 void	handle_small_stack(t_stack **a, t_stack **b, char **moves)
 {
