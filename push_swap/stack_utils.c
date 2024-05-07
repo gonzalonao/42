@@ -1,45 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_utils.c                                      :+:      :+:    :+:   */
+/*   stack_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:42:29 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/06 14:42:55 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/07 15:45:11 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_print_stack(t_stack *stack)
+int	is_sorted(t_stack *a, t_stack *b)
 {
-	t_stack	*tmp;
-
-	tmp = stack;
-	while (tmp)
+	if (b)
+		return (0);
+	while (a->next)
 	{
-		printf("%ld\n", tmp->value);
-		tmp = tmp->next;
+		if (a->value > a->next->value)
+			return (0);
+		a = a->next;
 	}
+	return (1);
 }
 
-void	print_stacks(t_stack *stack_a, t_stack *stack_b)
+long	stack_size(t_stack *stack)
 {
-	t_stack	*tmp;
+	long	size;
 
-	tmp = stack_a;
-	printf("Stack A:\n");
-	while (tmp)
+	size = 0;
+	while (stack)
 	{
-		printf("%ld\n", tmp->value);
-		tmp = tmp->next;
+		stack = stack->next;
+		size++;
 	}
-	tmp = stack_b;
-	printf("Stack B:\n");
-	while (tmp)
-	{
-		printf("%ld\n", tmp->value);
-		tmp = tmp->next;
-	}
-}
+	ret

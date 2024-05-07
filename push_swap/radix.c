@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:41:48 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/06 14:49:41 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/07 15:26:56 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,112 +38,86 @@ long	stack_size(t_stack *stack)
 	return (size);
 }
 
-int	get_next_move(char *moves, int i)
+void	handle_small_stack(t_stack **a, t_stack **b, char **moves)
 {
-	char	current_move;
-
-	current_move = moves[i];
-	while (moves[++i])
-		if (moves[i] != current_move && moves[i] != ' ')
-			return (i);
-	return (-1);
-}
-
-int	get_index(char move)
-{
-	if (move == 'a')
-		return (0);
-	if (move == 'b')
-		return (1);
-	if (move == 'c')
-		return (2);
-	if (move == 'd')
-		return (4);
-	if (move == 'r')
-		return (8);
-	return (-4);
-}
-
-void	simplify_moves(char *moves)
-{
-	int		i;
-	int		next_move;
-
-	i = 0;
-	while (moves[i])
-	{
-		next_move = get_next_move(moves, i);
-		if (next_move == -1)
-			break ;
-		if (get_index(moves[i]) + get_index(moves[next_move]) == 1)
-		{
-			moves[i] = ' ';
-			moves[next_move] = ' ';
-		}
-		else if (get_index(moves[i]) + get_index(moves[next_move]) == 6)
-		{
-			moves[i] = 'r';
-			moves[next_move] = ' ';
-		}
-		i++;
-	}
-	print_moves(moves);
-	free(moves);
-}
-
-void	ft_radix_sort(t_stack **a, t_stack **b, long max)
-{
-	long	i;
-	long	j;
-	long	size;
-	char	*moves;
-
-	moves = ft_strdup("");
-	if (!moves)
-		return ;
 	if (stack_size(*a) <= 3)
 	{
 		if (!is_sorted(*a, NULL))
-			sort_3(a, &moves);
-		if (!moves)
-			return ;
-		simplify_moves(moves);
+			sort_3(a, moves);
 		return ;
 	}
 	if (stack_size(*a) <= 5)
 	{
 		if (!is_sorted(*a, NULL))
-			sort_5(a, b, &moves);
-		if (!moves)
-			return ;
-		simplify_moves(moves);
-		return ;
+			sort_5(a, b, moves);
 	}
+}
+
+void	process_stack_a(t_stack **a, t_stack **b, char **moves, long i)
+{
+	long	j;
+	long	size;
+
+	j = 0;
+	size = stack_size(*a);
+	while (j++ < size)
+	{
+		if (((*a)->value >> i) & 1)
+			ra(a, moves);
+		else
+			pb(a, b, moves);
+	}
+}
+
+void	process_stack_b(t_stack **a, t_stack **b, char **moves, long i)
+{
+	long	size;
+
+	size = stack_size(*b);
+	while (size--)
+	{
+		if (((*b)->value >> i) & 1)
+			pa(a, b, moves);
+		else
+			rb(b, moves);
+	}
+}
+
+void	handle_large_stack(t_stack **a, t_stack **b, char **moves, long max)
+{
+	long	i;
+
 	i = 0;
 	while (i < max)
 	{
-		j = 0;
-		size = stack_size(*a);
-		while (j++ < size)
-		{
-			if (((*a)->value >> i) & 1)
-				ra(a, &moves);
-			else
-				pb(a, b, &moves);
-		}
+		process_stack_a(a, b, moves, i);
 		if (++i == max)
 		{
 			while (*b)
-				pa(a, b, &moves);
+				pa(a, b, moves);
 		}
-		size = stack_size(*b);
-		while (size--)
-		{
-			if (((*b)->value >> i) & 1)
-				pa(a, b, &moves);
-			else
-				rb(b, &moves);
-		}
+		process_stack_b(a, b, moves, i);
+	}
+}
+
+void	ft_radix_sort(t_stack **a, t_stack **b, long max)
+{
+	char	*moves;
+
+	moves = ft_strdup("");
+	if (!moves)
+		return ;
+	if (stack_size(*a) <= 5)
+	{
+		handle_small_stack(a, b, &moves);
+		if (!moves)
+			return ;
+	}
+	else
+	{
+		handle_large_stack(a, b, &moves, max);
+		if (!moves)
+			return ;
 	}
 	simplify_moves(moves);
 }

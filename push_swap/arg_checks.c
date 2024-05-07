@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 20:12:18 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/06 15:23:48 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/07 09:55:10 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ int	ft_check_intdups(t_stack *stack)
 	while (tmp)
 	{
 		if (tmp->value > INT_MAX || tmp->value < INT_MIN)
-			return (4);
+			return (1);
 		tmp2 = tmp->next;
 		while (tmp2)
 		{
 			if (tmp->value == tmp2->value)
-				return (5);
+				return (1);
 			tmp2 = tmp2->next;
 		}
 		tmp = tmp->next;

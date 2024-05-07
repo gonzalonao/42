@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:31:24 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/06 15:10:13 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/07 15:06:41 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,10 @@ char	**ft_get_split(char **argv, int argc);
 t_stack	*ft_init_stack(char **split);
 long	ft_find_max(t_stack *stack);
 void	ft_normalize_stack(t_stack *stack);
+int		get_index(char move);
+void	simplify_moves(char *moves);
+int		get_next_move(char *moves, int i);
+void	print_moves(char *moves);
+char	*add_move(char *moves, char move);
 
 #endif

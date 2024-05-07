@@ -6,60 +6,11 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 19:46:36 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/02 14:08:49 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/07 15:06:52 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-char	*add_move(char *moves, char move)
-{
-	char	*new_moves;
-	int		i;
-
-	i = 0;
-	while (moves[i])
-		i++;
-	new_moves = (char *)malloc(sizeof(char) * (i + 2));
-	if (!new_moves)
-		return (NULL);
-	i = -1;
-	while (moves[++i])
-		new_moves[i] = moves[i];
-	new_moves[i] = move;
-	new_moves[i + 1] = '\0';
-	free(moves);
-	return (new_moves);
-}
-
-void	print_moves(char *moves)
-{
-	int	i;
-
-	i = 0;
-	while (moves[i])
-	{
-		if (moves[i] == 'a')
-			write(1, "pa\n", 3);
-		if (moves[i] == 'b')
-			write(1, "pb\n", 3);
-		if (moves[i] == 'r')
-			write(1, "rr\n", 3);
-		if (moves[i] == 'c')
-			write(1, "ra\n", 3);
-		if (moves[i] == 'd')
-			write(1, "rb\n", 3);
-		if (moves[i] == 'e')
-			write(1, "sa\n", 3);
-		if (moves[i] == 'f')
-			write(1, "sb\n", 3);
-		if (moves[i] == 'g')
-			write(1, "rra\n", 4);
-		if (moves[i] == 'h')
-			write(1, "rrb\n", 4);
-		i++;
-	}
-}
 
 void	swap(t_stack **stack)
 {
