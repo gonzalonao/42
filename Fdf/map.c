@@ -6,19 +6,17 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:44:44 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/03/22 16:33:19 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/10 17:25:07 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fdf.h"
 
-int	ft_countlines(char *argv)
+int	ft_countlines(int fd)
 {
 	int		i;
-	int		fd;
 	char	*line;
 
-	fd = open(argv, O_RDONLY);
 	i = 0;
 	line = get_next_line(fd);
 	while (line)
@@ -27,21 +25,18 @@ int	ft_countlines(char *argv)
 		free(line);
 		line = get_next_line(fd);
 	}
-	close(fd);
 	return (i);
 }
 
-char	***ft_readmap(char	*argv)
+char	***ft_readmap(int fd, int lines)
 {
 	char	***split;
 	char	*line;
 	int		i;
-	int		fd;
 
-	split = (char ***)malloc(sizeof(char **) * (ft_countlines(argv) + 1));
+	split = (char ***)malloc(sizeof(char **) * (lines + 1));
 	if (!split)
 		return (NULL);
-	fd = open(argv, O_RDONLY);
 	line = get_next_line(fd);
 	i = 0;
 	while (line)
@@ -56,7 +51,6 @@ char	***ft_readmap(char	*argv)
 		line = get_next_line(fd);
 	}
 	split[i] = NULL;
-	close(fd);
 	return (split);
 }
 

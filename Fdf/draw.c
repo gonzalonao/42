@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:32:22 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/03/19 13:35:23 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/10 18:22:15 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@ void	ft_drawline(t_coords coord1, t_coords coord2,
 		else
 			utils.percent = (double)(coord1.iso_y - utils.min)
 				/ (utils.max - utils.min);
-		utils.color = *get_color(utils.percent, *coord1.color, *coord2.color);
+		utils.color = get_color(utils.percent, *coord1.color, *coord2.color);
 		if (coord1.iso_x >= 0 && coord1.iso_x < 1200
 			&& coord1.iso_y >= 0 && coord1.iso_y < 1200)
-			mlx_put_pixel(image, coord1.iso_x, coord1.iso_y, utils.color);
+			mlx_put_pixel(image, coord1.iso_x, coord1.iso_y, *utils.color);
+		free(utils.color);
 		utils.e2 = utils.err;
 		if (utils.e2 > -utils.dx)
 		{

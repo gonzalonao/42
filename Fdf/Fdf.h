@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:27:35 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/03/22 16:23:21 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/10 18:21:54 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct s_line_utils
 	int		e2;
 	int		max;
 	int		min;
-	int		color;
+	int		*color;
 	double	percent;
 }			t_line_utils;
 
@@ -86,9 +86,9 @@ t_coords	*ft_innit_coords(char ***split);
 void		ft_transform_coords(t_coords *coords);
 void		ft_adjust_values(t_coords *coords, t_map map);
 t_map		ft_innit_map(t_coords *coords);
-char		***ft_readmap(char *argv);
+char		***ft_readmap(int fd, int lines);
 void		ft_free_split(char ***split);
 void		ft_free_array(void **array);
-int			ft_countlines(char *argv);
+int			ft_countlines(int fd);
 
 #endif
