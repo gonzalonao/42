@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:37:38 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/03/22 16:51:44 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/13 21:14:02 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	ft_get_coords(t_coords *coords, char **split, int i, int j)
 	coords->y = i;
 	coords->z = ft_atoi(split[0]);
 	if (split[1] && split[1][0] == '0' && split[1][1] == 'x')
-		coords->color = ft_atoi_base(ft_capitalize(split[1] + 2),
-				"0123456789ABCDEF");
+		coords->color = (ft_color_atoi_base(ft_capitalize(split[1] + 2),
+					"0123456789ABCDEF"));
 	else
 		coords->color = NULL;
 }
@@ -83,6 +83,7 @@ t_coords	*ft_innit_coords(char ***split)
 		{
 			split2 = ft_split(split[i][j], ',');
 			ft_get_coords(coords, split2, i, j);
+			ft_free_array((void **)split2);
 			if (split[i][j + 1] || split[i + 1])
 				coords->next = ft_new_coords(NULL);
 			coords = coords->next;

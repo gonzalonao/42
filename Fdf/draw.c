@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:32:22 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/10 18:22:15 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:05:06 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,5 @@ void	ft_show_points(t_coords *coord, mlx_image_t *image)
 			ft_line(*coord, *coord->right, image);
 		coord = coord->next;
 	}
+	ft_free_coords(coord);
 }

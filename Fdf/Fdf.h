@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:27:35 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/10 18:21:54 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/13 21:35:49 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct s_line_utils
 uint8_t		ft_percent(uint8_t min, uint8_t max, double percent);
 int			*get_color(double percent, int min_color, int max_color);
 char		*ft_capitalize(char *str);
-int			*ft_atoi_base(const char *str, const char *base);
+int			*ft_color_atoi_base(const char *str, const char *base);
 void		ft_drawline(t_coords coord1, t_coords coord2,
 				t_line_utils utils, mlx_image_t *image);
 void		ft_line(t_coords coord1, t_coords coord2, mlx_image_t *image);
@@ -89,6 +89,9 @@ t_map		ft_innit_map(t_coords *coords);
 char		***ft_readmap(int fd, int lines);
 void		ft_free_split(char ***split);
 void		ft_free_array(void **array);
+void		ft_free_coords(t_coords *coords);
+void		ft_mlx_error(t_coords *coords);
+void		ft_image_error(t_coords *coords, mlx_t *mlx);
 int			ft_countlines(int fd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:47:49 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/10 18:22:00 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/13 20:50:27 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*ft_capitalize(char *str)
 	return (str);
 }
 
-int	*ft_atoi_base(const char *str, const char *base)
+int	*ft_color_atoi_base(const char *str, const char *base)
 {
 	int	*result;
 	int	sign;
@@ -77,6 +77,6 @@ int	*ft_atoi_base(const char *str, const char *base)
 			break ;
 		i++;
 	}
-	*result *= sign;
+	*result = *result << 8 | 0xFF;
 	return (result);
 }

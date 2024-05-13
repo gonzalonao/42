@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 16:16:01 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/03/22 16:17:23 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:04:56 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,18 @@ void	ft_free_array(void **array)
 		i++;
 	}
 	free(array);
+}
+
+void	ft_free_coords(t_coords *coords)
+{
+	t_coords	*tmp;
+
+	while (coords)
+	{
+		tmp = coords->next;
+		if (coords->color)
+			free(coords->color);
+		free(coords);
+		coords = tmp;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:46:11 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/03/19 13:46:42 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/13 21:13:56 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ void	ft_adjust_values(t_coords *coords, t_map map)
 	first = coords;
 	while (coords)
 	{
-		coords->iso_x = round(coords->iso_x * (1080 / map.max_range)
-				- (map.min_x) * (1080 / map.max_range)) + 20;
-		coords->iso_y = round(coords->iso_y * (1080 / map.max_range)
-				- (map.min_y) * (1080 / map.max_range)) + 20;
+		coords->iso_x = round(1080 * (coords->iso_x - map.min_x)
+				/ map.range_x + 20);
+		coords->iso_y = round(1080 * (coords->iso_y - map.min_y)
+				/ map.range_y + 20);
 		if (!coords->color)
 		{
 			percent = (double)(coords->z - map.min_z)

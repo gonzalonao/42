@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:25:36 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/10 18:46:37 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/13 21:36:54 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,23 @@
 
 void	ft_key_hook(mlx_key_data_t key_data, void *param)
 {
-	mlx_image_t	*image;
+	mlx_t	*mlx;
 
-	image = (mlx_image_t *)param;
+	mlx = (mlx_t *)param;
 	if (key_data.key == MLX_KEY_ESCAPE && key_data.action == MLX_PRESS)
 	{
-		write(1, "ESC pressed\n", 12);
+		mlx_terminate(mlx);
+		exit(EXIT_SUCCESS);
 	}
+}
+
+void	ft_close_func(void *param)
+{
+	mlx_t	*mlx;
+
+	mlx = (mlx_t *)param;
+	mlx_terminate(mlx);
+	exit(EXIT_SUCCESS);
 }
 
 int	ft_generate_image(t_coords *coords)
@@ -30,17 +40,20 @@ int	ft_generate_image(t_coords *coords)
 
 	mlx = mlx_init(1200, 1200, "Fdf", true);
 	if (!mlx)
-		return (-100);
+		ft_mlx_error(coords);
+	mlx_close_hook(mlx, ft_close_func, mlx);
+	mlx_key_hook(mlx, ft_key_hook, mlx);
 	image = mlx_new_image(mlx, 1200, 1200);
-	if (!image || (mlx_image_to_window(mlx, image, 0, 0) < 0))
-		return (-100);
+	if (!image)
+		ft_image_error(coords, mlx);
+	if (mlx_image_to_window(mlx, image, 0, 0) < 0)
+		ft_image_error(coords, mlx);
 	ft_show_points(coords, image);
-	mlx_key_hook(mlx, ft_key_hook, image);
 	mlx_loop(mlx);
 	return (1);
 }
 
-void	main2(char ***split)
+void	ft_create_image(char ***split)
 {
 	t_coords	*coords;
 	t_coords	*first;
@@ -50,8 +63,8 @@ void	main2(char ***split)
 	ft_free_split(split);
 	if (!coords)
 	{
-		ft_printf("Error creating coords");
-		exit(0);
+		write(2, "Error\n", 6);
+		exit(EXIT_FAILURE);
 	}
 	first = coords;
 	ft_transform_coords(coords);
@@ -83,5 +96,5 @@ int	main(int argc, char **argv)
 		ft_printf("Error reading file");
 		return (0);
 	}
-	main2(split);
+	ft_create_image(split);
 }
