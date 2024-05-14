@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colours.c                                           :+:      :+:    :+:   */
+/*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:47:49 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/14 18:11:43 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/14 20:16:00 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,14 @@ char	*ft_capitalize(char *str)
 	return (str);
 }
 
-int	*ft_colour_atoi_base(const char *str, const char *base)
+int	ft_colour_atoi_base(const char *str, const char *base)
 {
-	int	*result;
+	int	result;
 	int	sign;
 	int	i;
 	int	j;
 
-	result = (int *)malloc(sizeof(int) * 1);
-	*result = 0;
+	result = 0;
 	sign = 1;
 	i = 0;
 	while (str[i] == '-' || str[i] == '+')
@@ -82,11 +81,11 @@ int	*ft_colour_atoi_base(const char *str, const char *base)
 		while (base[j] && str[i] != base[j])
 			j++;
 		if (base[j])
-			*result = *result * ft_strlen(base) + j;
+			result = result * ft_strlen(base) + j;
 		else
 			break ;
 		i++;
 	}
-	*result = *result << 8 | 0xFF;
+	result = result << 8 | 0xFF;
 	return (result);
 }

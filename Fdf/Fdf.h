@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:27:35 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/14 18:14:11 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/14 20:12:36 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct s_line_utils
 uint8_t		ft_percent(uint8_t min, uint8_t max, double percent);
 int			get_colour(double percent, int min_colour, int max_colour);
 char		*ft_capitalize(char *str);
-int			*ft_colour_atoi_base(const char *str, const char *base);
+int			ft_colour_atoi_base(const char *str, const char *base);
 void		ft_drawline(t_coords coord1, t_coords coord2,
 				t_line_utils utils, mlx_image_t *image);
 void		ft_line(t_coords coord1, t_coords coord2, mlx_image_t *image);

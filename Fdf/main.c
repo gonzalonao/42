@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:25:36 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/14 17:55:45 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/14 20:47:07 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_close_func(void *param)
 	exit(EXIT_SUCCESS);
 }
 
-int	ft_generate_image(t_coords *coords)
+void	ft_generate_image(t_coords *coords)
 {
 	mlx_t		*mlx;
 	mlx_image_t	*image;
@@ -50,7 +50,6 @@ int	ft_generate_image(t_coords *coords)
 		ft_image_error(coords, mlx);
 	ft_show_points(coords, image);
 	mlx_loop(mlx);
-	return (1);
 }
 
 void	ft_create_image(char ***split)

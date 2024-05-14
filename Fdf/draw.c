@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:32:22 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/14 18:12:52 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/14 20:39:59 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void	ft_drawline(t_coords coord1, t_coords coord2,
 		else
 			utils.percent = (double)(coord1.iso_y - utils.min)
 				/ (utils.max - utils.min);
-		utils.colour = get_colour(utils.percent, *coord1.colour, *coord2.colour);
+		utils.colour = get_colour(utils.percent, *coord1.colour,
+				*coord2.colour);
 		if (coord1.iso_x >= 0 && coord1.iso_x < WIDTH
 			&& coord1.iso_y >= 0 && coord1.iso_y < HEIGHT)
 			mlx_put_pixel(image, coord1.iso_x, coord1.iso_y, utils.colour);
-		//free(utils.colour);
 		utils.e2 = utils.err;
 		if (utils.e2 > -utils.dx)
 		{
@@ -48,14 +48,14 @@ void	ft_line(t_coords coord1, t_coords coord2, mlx_image_t *image)
 
 	utils.dx = fabs(coord2.iso_x - coord1.iso_x);
 	utils.dy = fabs(coord2.iso_y - coord1.iso_y);
-	if (utils.dx != 0)
+	if (utils.dx)
 		utils.sx = (coord2.iso_x - coord1.iso_x) / utils.dx;
 	else
-		utils.sx = 1;
-	if (utils.dy != 0)
+		utils.sx = 0;
+	if (utils.dy)
 		utils.sy = (coord2.iso_y - coord1.iso_y) / utils.dy;
 	else
-		utils.sy = 1;
+		utils.sy = 0;
 	if (utils.dx > utils.dy)
 	{
 		utils.min = coord1.iso_x;
