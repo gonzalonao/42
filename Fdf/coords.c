@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:37:38 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/14 16:44:41 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/14 18:12:52 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_coords	*ft_new_coords(t_coords *next)
 	coords->next = next;
 	coords->right = NULL;
 	coords->down = NULL;
-	coords->color = NULL;
+	coords->colour = NULL;
 	return (coords);
 }
 
@@ -58,10 +58,10 @@ void	ft_get_coords(t_coords *coords, char **split, int i, int j)
 	coords->y = i;
 	coords->z = ft_atoi(split[0]);
 	if (split[1] && split[1][0] == '0' && split[1][1] == 'x')
-		coords->color = (ft_color_atoi_base(ft_capitalize(split[1] + 2),
+		coords->colour = (ft_colour_atoi_base(ft_capitalize(split[1] + 2),
 					"0123456789ABCDEF"));
 	else
-		coords->color = NULL;
+		coords->colour = NULL;
 }
 
 t_coords	*ft_innit_coords(char ***split)

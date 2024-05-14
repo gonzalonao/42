@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:46:11 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/14 17:06:44 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/14 18:15:42 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,14 @@ void	ft_adjust_values(t_coords *coords, t_map map)
 				* (coords->iso_x - map.min_x) / map.range_x + X_MARGIN);
 		coords->iso_y = round((HEIGHT - Y_MARGIN * 2)
 				* (coords->iso_y - map.min_y) / map.range_y + Y_MARGIN);
-		if (!coords->color)
+		if (!coords->colour)
 		{
 			percent = (double)(coords->z - map.min_z)
 				/ (map.max_z - map.min_z);
-			coords->color = get_color(percent, MIN_COLOR, MAX_COLOR);
+			coords->colour = colour_dup(
+					get_colour(percent, MIN_COLOUR, MAX_COLOUR));
+			if (!coords->colour)
+				ft_mlx_error(coords);
 		}
 		coords = coords->next;
 	}

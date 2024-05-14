@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:27:35 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/14 17:48:48 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/14 18:14:11 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@
 #  define HEIGHT 1080
 # endif
 
-# ifndef MAX_COLOR
-#  define MAX_COLOR 0xFF0000FF
+# ifndef MAX_COLOUR
+#  define MAX_COLOUR 0xFF0000FF
 # endif
 
-# ifndef MIN_COLOR
-#  define MIN_COLOR 0x0000FFFF
+# ifndef MIN_COLOUR
+#  define MIN_COLOUR 0x0000FFFF
 # endif
 
 # ifndef X_MARGIN
@@ -56,7 +56,7 @@ typedef struct s_coords
 	int				z;
 	double			iso_x;
 	double			iso_y;
-	int				*color;
+	int				*colour;
 	struct s_coords	*next;
 	struct s_coords	*right;
 	struct s_coords	*down;
@@ -84,14 +84,14 @@ typedef struct s_line_utils
 	int		e2;
 	int		max;
 	int		min;
-	int		*color;
+	int		colour;
 	double	percent;
 }			t_line_utils;
 
 uint8_t		ft_percent(uint8_t min, uint8_t max, double percent);
-int			*get_color(double percent, int min_color, int max_color);
+int			get_colour(double percent, int min_colour, int max_colour);
 char		*ft_capitalize(char *str);
-int			*ft_color_atoi_base(const char *str, const char *base);
+int			*ft_colour_atoi_base(const char *str, const char *base);
 void		ft_drawline(t_coords coord1, t_coords coord2,
 				t_line_utils utils, mlx_image_t *image);
 void		ft_line(t_coords coord1, t_coords coord2, mlx_image_t *image);
@@ -111,5 +111,6 @@ void		ft_free_coords(t_coords *coords);
 void		ft_mlx_error(t_coords *coords);
 void		ft_image_error(t_coords *coords, mlx_t *mlx);
 int			ft_countlines(int fd);
+int			*colour_dup(int colour);
 
 #endif

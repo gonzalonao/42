@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 16:16:01 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/14 16:22:44 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/14 18:12:52 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void	ft_free_coords(t_coords *coords)
 	while (coords)
 	{
 		tmp = coords->next;
-		if (coords->color)
-			free(coords->color);
+		if (coords->colour)
+			free(coords->colour);
 		free(coords);
 		coords = tmp;
 	}

@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:25:36 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/14 16:37:26 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:55:45 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int	ft_generate_image(t_coords *coords)
 void	ft_create_image(char ***split)
 {
 	t_coords	*coords;
-	t_coords	*first;
 	t_map		map;
 
 	coords = ft_innit_coords(split);
@@ -66,12 +65,10 @@ void	ft_create_image(char ***split)
 		write(2, "Error\n", 6);
 		exit(EXIT_FAILURE);
 	}
-	first = coords;
 	ft_transform_coords(coords);
 	map = ft_innit_map(coords);
-	coords = first;
 	ft_adjust_values(coords, map);
-	ft_generate_image(first);
+	ft_generate_image(coords);
 }
 
 int	main(int argc, char **argv)
