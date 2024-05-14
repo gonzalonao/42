@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:37:38 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/13 21:14:02 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:44:41 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_coords	*ft_new_coords(t_coords *next)
 	coords->next = next;
 	coords->right = NULL;
 	coords->down = NULL;
+	coords->color = NULL;
 	return (coords);
 }
 

@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:25:36 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/13 21:36:54 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:37:26 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ int	ft_generate_image(t_coords *coords)
 	mlx_t		*mlx;
 	mlx_image_t	*image;
 
-	mlx = mlx_init(1200, 1200, "Fdf", true);
+	mlx = mlx_init(WIDTH, HEIGHT, "Fdf", true);
 	if (!mlx)
 		ft_mlx_error(coords);
 	mlx_close_hook(mlx, ft_close_func, mlx);
 	mlx_key_hook(mlx, ft_key_hook, mlx);
-	image = mlx_new_image(mlx, 1200, 1200);
+	image = mlx_new_image(mlx, WIDTH, HEIGHT);
 	if (!image)
 		ft_image_error(coords, mlx);
 	if (mlx_image_to_window(mlx, image, 0, 0) < 0)
@@ -82,8 +82,8 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_printf("Wrong number of arguments");
-		return (0);
+		write(2, "Error\n", 6);
+		exit(EXIT_FAILURE);
 	}
 	fd = open(argv[1], O_RDONLY);
 	lines = ft_countlines(fd);
@@ -93,8 +93,8 @@ int	main(int argc, char **argv)
 	close(fd);
 	if (!split)
 	{
-		ft_printf("Error reading file");
-		return (0);
+		write(2, "Error\n", 6);
+		exit(EXIT_FAILURE);
 	}
 	ft_create_image(split);
 }

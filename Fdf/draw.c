@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:32:22 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/13 17:05:06 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:38:14 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	ft_drawline(t_coords coord1, t_coords coord2,
 			utils.percent = (double)(coord1.iso_y - utils.min)
 				/ (utils.max - utils.min);
 		utils.color = get_color(utils.percent, *coord1.color, *coord2.color);
-		if (coord1.iso_x >= 0 && coord1.iso_x < 1200
-			&& coord1.iso_y >= 0 && coord1.iso_y < 1200)
+		if (coord1.iso_x >= 0 && coord1.iso_x < WIDTH
+			&& coord1.iso_y >= 0 && coord1.iso_y < HEIGHT)
 			mlx_put_pixel(image, coord1.iso_x, coord1.iso_y, *utils.color);
 		free(utils.color);
 		utils.e2 = utils.err;
@@ -73,10 +73,10 @@ void	ft_line(t_coords coord1, t_coords coord2, mlx_image_t *image)
 
 void	ft_show_points(t_coords *coord, mlx_image_t *image)
 {
-	while (coord)
+	while (coord && coord->iso_x && coord->iso_y)
 	{
-		if (coord->iso_x >= 0 && coord->iso_x < 1200
-			&& coord->iso_y >= 0 && coord->iso_y < 1200)
+		if (coord->iso_x >= 0 && coord->iso_x < WIDTH
+			&& coord->iso_y >= 0 && coord->iso_y < HEIGHT)
 			mlx_put_pixel(image, coord->iso_x, coord->iso_y, *coord->color);
 		if (coord->down)
 			ft_line(*coord, *coord->down, image);

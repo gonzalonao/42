@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:44:44 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/10 17:25:07 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:47:53 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,7 @@ t_map	ft_innit_map(t_coords *coords)
 		map.max_z = fmax(map.max_z, coords->z);
 		coords = coords->next;
 	}
-	map.offset_x = fmax(-map.min_x, 0);
-	map.offset_y = fmax(-map.min_y, 0);
 	map.range_x = map.max_x - map.min_x;
 	map.range_y = map.max_y - map.min_y;
-	map.range_z = map.max_z - map.min_z;
-	map.max_range = fmax(map.range_x, map.range_y);
 	return (map);
 }

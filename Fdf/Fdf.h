@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:27:35 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/13 21:35:49 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:48:48 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,30 @@
 # include <limits.h>
 # include "libft/libft.h"
 # include "MLX42/MLX42.h"
+
+# ifndef WIDTH
+#  define WIDTH 1920
+# endif
+
+# ifndef HEIGHT
+#  define HEIGHT 1080
+# endif
+
+# ifndef MAX_COLOR
+#  define MAX_COLOR 0xFF0000FF
+# endif
+
+# ifndef MIN_COLOR
+#  define MIN_COLOR 0x0000FFFF
+# endif
+
+# ifndef X_MARGIN
+#  define X_MARGIN 50
+# endif
+
+# ifndef Y_MARGIN
+#  define Y_MARGIN 50
+# endif
 
 typedef struct s_coords
 {
@@ -46,14 +70,8 @@ typedef struct s_map
 	double	max_y;
 	double	min_z;
 	double	max_z;
-	int		width;
-	int		height;
-	int		range_x;
-	int		range_y;
-	int		range_z;
-	double	max_range;
-	int		offset_x;
-	int		offset_y;
+	double	range_x;
+	double	range_y;
 }			t_map;
 
 typedef struct s_line_utils
