@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:27:35 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/05/14 20:12:36 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/05/15 17:21:00 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@
 # endif
 
 # ifndef MAX_COLOUR
-#  define MAX_COLOUR 0xFF0000FF
+#  define MAX_COLOUR 0x9A1F6AFF
 # endif
 
 # ifndef MIN_COLOUR
-#  define MIN_COLOUR 0x0000FFFF
+#  define MIN_COLOUR 0xF3AF3DFF
 # endif
 
 # ifndef X_MARGIN
