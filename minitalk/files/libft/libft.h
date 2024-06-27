@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: glopez-c <glopez-c@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: glopez-c <glopez-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 14:38:30 by glopez-c          #+#    #+#             */
-/*   Updated: 2023/12/05 13:32:03 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/02/12 17:16:59 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,17 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <limits.h>
+# include <stdarg.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+# ifndef OPEN_MAX
+#  define OPEN_MAX 10240
+# endif
 
 typedef struct s_list
 {
@@ -65,5 +76,17 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+/*					PRINT_F				*/
+int		ft_printchar_fd(char c, int fd);
+int		ft_printstr_fd(char *s, int fd);
+int		ft_printnbr_fd(long nb, int fd, int i);
+int		ft_printnbr_base_fd(unsigned long nbr, char *base, int fd);
+int		ft_printunbr_base_fd(unsigned long nbr, char *base, int fd);
+int		ft_printf(char const *s, ...);
+/*				GET_NEXT_LINE			*/
+char	*get_next_line(int fd);
+size_t	ft_get_strlen(const char *s);
+char	*ft_get_strjoin(char *s1, char *s2);
+char	*ft_get_substr(char const *s, unsigned int start, size_t len);
 
 #endif

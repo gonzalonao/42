@@ -3,25 +3,22 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: glopez-c <glopez-c@student.42malaga.com>   +#+  +:+       +#+         #
+#    By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 20:01:25 by glopez-c          #+#    #+#              #
-#    Updated: 2024/02/07 13:01:30 by glopez-c         ###   ########.fr        #
+#    Updated: 2024/06/27 19:31:02 by glopez-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME_C = client
 NAME_S = server
-#NAME_B = pipex_bonus
+
+LIBFT = ./libft
 
 SRC_C = client.c
 SRC_S = server.c
 OBJS_C = ${SRC_C:.c=.o}
 OBJS_S= ${SRC_S:.c=.o}
-
-#SRCS_B = pipex_bonus.c pipex_utils.c
-#OBJS_B = ${SRCS_B:.c=.o}
-#MAIN_B = pipex_bonus.c
 
 CC = gcc
 FLAGS = -Wall -Werror -Wextra
@@ -31,33 +28,22 @@ FLAGS = -Wall -Werror -Wextra
 
 all: ${NAME_C} ${NAME_S}
 
-$(NAME_C): ${OBJS_C}
-	@make re -C ./libft
-	@${CC} -fsanitize=address -L./libft -lft ${OBJS_C} -o ${NAME_C}
+libft:
+	@make re -C $(LIBFT)
 
-$(NAME_S): ${OBJS_S}
-	@make re -C ./libft
-	@${CC} -fsanitize=address -L./libft -lft ${OBJS_S} -o ${NAME_S}
+$(NAME_C): ${OBJS_C} libft
+	@${CC} -fsanitize=address ${OBJS_C} -o ${NAME_C} -L$(LIBFT) -lft
 
-#$(NAME_B): ${OBJS_B}
-#	@make re -C ./libft
-#	@${CC} ${OBJS_B} -Llibft -lft -o ${NAME_B}
-
-#bonus: ${NAME_B}
-#	@make re -C ./libft
-#	@${CC} ${OBJS_B} -Llibft -lft -o ${NAME_B}
+$(NAME_S): ${OBJS_S} libft
+	@${CC} -fsanitize=address ${OBJS_S} -o ${NAME_S} -L$(LIBFT) -lft 
 
 clean: 
-	@make clean -C ./libft
-	@rm -f ${OBJS_C} ${OBJS_S} # ${OBJS_B}
+	@make fclean -C $(LIBFT)
+	@rm -f ${OBJS_C} ${OBJS_S}
 
 fclean: clean
-	@make fclean -C ./libft
-	@rm -f ${NAME_C} ${NAME_S} # ${NAME_B}
+	@rm -f ${NAME_C} ${NAME_S}
 
 re: fclean all
 
-#re_bonus: fclean bonus
-
-.PHONY: all clean fclean re #re_bonus bonus
-
+.PHONY: all clean libft fclean re

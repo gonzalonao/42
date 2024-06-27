@@ -6,7 +6,7 @@
 #    By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 18:24:00 by glopez-c          #+#    #+#              #
-#    Updated: 2024/05/14 17:39:43 by glopez-c         ###   ########.fr        #
+#    Updated: 2024/06/27 19:25:55 by glopez-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ libft:
 	@make re -C $(LIBFT)
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $< \n)"
+	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $< \n)"
 
 $(NAME): $(OBJS) libft libmlx
 	@$(CC) $(OBJS) $(LIBS) $(GLFW) $(HEADERS) -o $(NAME)

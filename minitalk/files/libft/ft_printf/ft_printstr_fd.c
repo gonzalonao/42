@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_printstr_fd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: glopez-c <glopez-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/19 16:12:10 by ajordan-          #+#    #+#             */
-/*   Updated: 2024/06/25 18:26:52 by glopez-c         ###   ########.fr       */
+/*   Created: 2023/12/11 21:54:16 by glopez-c          #+#    #+#             */
+/*   Updated: 2024/02/07 20:46:41 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include <stdio.h>
-# include "./libft/libft.h"
+int	ft_printstr_fd(char *s, int fd)
+{
+	int	i;
 
-int	ft_atoi(const char *str);
-
-#endif
+	if (!s)
+	{
+		i = write(1, "(null)", 6);
+		return (i);
+	}
+	i = -1;
+	while (s[++i])
+		if (write(fd, &s[i], 1) == -1)
+			return (-1);
+	return (i);
+}

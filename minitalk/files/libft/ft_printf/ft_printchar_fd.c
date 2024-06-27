@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_printchar_fd.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: glopez-c <glopez-c@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: glopez-c <glopez-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/29 17:43:08 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/01/29 18:43:54 by glopez-c         ###   ########.fr       */
+/*   Created: 2023/12/11 21:53:17 by glopez-c          #+#    #+#             */
+/*   Updated: 2024/02/07 20:46:27 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "libft.h"
 
-int	main(){
-	static char c = '\032';
-	c <<= 1;
-	if (!c)
-		printf("Null");
-	printf("%c", c);
+int	ft_printchar_fd(char c, int fd)
+{
+	int	x;
+
+	x = write(fd, &c, 1);
+	return (x);
 }
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajordan- <ajordan-@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 16:19:55 by ajordan-          #+#    #+#             */
-/*   Updated: 2024/01/29 20:10:35 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/06/27 19:32:59 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		printf("\033[91mError: wrong format.\033[0m\n");
-		printf("\033[33mTry: ./client <PID> <MESSAGE>\033[0m\n");
+		ft_printf("\033[91mError: wrong format.\033[0m\n");
+		ft_printf("\033[33mTry: ./client <PID> <MESSAGE>\033[0m\n");
 		return (1);
 	}
 	return (0);
