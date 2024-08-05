@@ -14,19 +14,18 @@
 
 void	ft_handler(int signal, siginfo_t *info, void *context)
 {
-	static int	bit;
-	static char	i;
-	int			pid;
-	static int	sig = SIGUSR1;
+	static int				bit;
+	static unsigned char	i;
+	int						pid;
+	int						sig;
 
+	sig = SIGUSR1;
 	(void)context;
 	pid = info->si_pid;
 	if (bit == 0)
 		i = 0;
 	if (signal == SIGUSR1)
 		i |= (0x01 << bit);
-	else
-		i |= (0x00 << bit);
 	bit++;
 	if (bit == 8)
 	{
@@ -54,10 +53,11 @@ int	main(void)
 	ft_printf("\033[0m\n\033[90mWaiting for a message...\033[0m\n");
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = ft_handler;
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
 	{
-		sigaction(SIGUSR1, &sa, NULL);
-		sigaction(SIGUSR2, &sa, NULL);
+		pause();
 	}
 	return (0);
 }

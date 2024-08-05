@@ -16,11 +16,12 @@ int	ft_send_string(char *s)
 {
 	static int	bit;
 	static char	*str;
+	static int	i;
 	int			signal;
 
 	if (!str && s)
 		str = s;
-	if ((*str & (0x01 << bit)) != 0)
+	if (((unsigned char)str[i] & (0x01 << bit)) != 0)
 		signal = SIGUSR1;
 	else
 		signal = SIGUSR2;
@@ -28,9 +29,7 @@ int	ft_send_string(char *s)
 	if (bit == 8)
 	{
 		bit = 0;
-		if (*str == '\0')
-			return (signal);
-		str++;
+		i++;
 	}
 	return (signal);
 }
@@ -69,12 +68,13 @@ int	main(int argc, char **argv)
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = ft_handler;
 	pid = ft_atoi(argv[1]);
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	signal = ft_send_string(argv[2]);
 	kill(pid, signal);
 	while(1)
 	{
-		sigaction(SIGUSR1, &sa, NULL);
-		sigaction(SIGUSR2, &sa, NULL);
+		pause();
 	}
 	return (0);
 }
