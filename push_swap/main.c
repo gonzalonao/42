@@ -65,5 +65,5 @@ int	main(int argc, char **argv)
 		ft_free_stack(stack_a);
 	}
 	sort_stack(stack_a);
-	return (1);
+	return (0);
 }
