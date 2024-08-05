@@ -27,14 +27,15 @@ void	ft_handler(int signal, siginfo_t *info, void *context)
 	bit++;
 	if (bit == 8)
 	{
+		bit = 0;
 		if (i == '\0')
 		{
 			ft_printf("\n");
 			kill(pid, SIGUSR2);
+			return ;
 		}
 		else
 			ft_printf("%c", i);
-		bit = 0;
 		i = 0;
 	}
 	kill(pid, SIGUSR1);

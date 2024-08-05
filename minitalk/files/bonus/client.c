@@ -20,11 +20,11 @@ int	ft_send_string(char *s)
 	int			signal;
 
 	if (!str && s)
-		str = s;
-	if (((unsigned char)str[i] & (0x01 << bit)))
-		signal = SIGUSR1;
-	else
+		str = s;						
+	if ((str[i] & (0x01 << bit)) == 0x00)
 		signal = SIGUSR2;
+	else
+		signal = SIGUSR1;
 	bit++;
 	if (bit == 8)
 	{
