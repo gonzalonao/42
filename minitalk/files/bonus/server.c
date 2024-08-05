@@ -22,8 +22,6 @@ void	ft_handler(int signal, siginfo_t *info, void *context)
 	pid = info->si_pid;
 	if (signal == SIGUSR1)
 		i |= (0x01 << bit);
-	else
-		i |= (0x00 << bit);
 	bit++;
 	if (bit == 8)
 	{
