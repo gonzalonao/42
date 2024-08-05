@@ -12,43 +12,60 @@
 
 #include "minitalk.h"
 
-void	ft_send_bits(int pid, char i)
+void	ft_send_string(int pid, char *s)
 {
-	int	bit;
+	static int	bit;
+	static char	*str;
 
-	bit = 0;
-	while (bit < 8)
+	if (!str && s)
+		str = s;
+	if ((*str & (0x01 << bit)) != 0)
+		kill(pid, SIGUSR1);
+	else
+		kill(pid, SIGUSR2);
+	bit++;
+	if (bit == 8)
 	{
-		if ((i & (0x01 << bit)) != 0)
-			kill(pid, SIGUSR1);
-		else
-			kill(pid, SIGUSR2);
-		usleep(100);
-		bit++;
+		bit = 0;
+		if (*str == '\0')
+			return ;
+		str++;
+	}
+}
+
+void	ft_handler(int signal, siginfo_t *info, void *context)
+{
+	int	pid;
+
+	void(context);
+	pid = info->si_pid;
+	if (signal == SIGUSR1)
+		ft_send_string(pid, NULL);
+	else if (signal == SIGUSR2)
+	{
+		ft_printf("\033[31mFull message received by server\033[0m\n");
+		exit(EXIT_SUCCESS);
 	}
 }
 
 int	main(int argc, char **argv)
 {
-	int	pid;
-	int	i;
+	int					pid;
+	struct sigaction	sa;
+	int					i;
 
-	i = 0;
-	if (argc == 3)
-	{
-		pid = ft_atoi(argv[1]);
-		while (argv[2][i] != '\0')
-		{
-			ft_send_bits(pid, argv[2][i]);
-			i++;
-		}
-		ft_send_bits(pid, '\n');
-	}
-	else
+	if (argc != 3)
 	{
 		ft_printf("\033[91mError: wrong format.\033[0m\n");
 		ft_printf("\033[33mTry: ./client <PID> <MESSAGE>\033[0m\n");
 		return (1);
 	}
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_sigaction = ft_handler;
+	pid = ft_atoi(argv[1]);
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
+	i = 0;
+	ft_send_string(pid, argv[2]);
 	return (0);
 }
