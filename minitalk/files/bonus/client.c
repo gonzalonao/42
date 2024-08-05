@@ -21,7 +21,7 @@ int	ft_send_string(char *s)
 
 	if (!str && s)
 		str = s;
-	if (((unsigned char)str[i] & (0x01 << bit)) != 0)
+	if (((unsigned char)str[i] & (0x01 << bit)))
 		signal = SIGUSR1;
 	else
 		signal = SIGUSR2;
@@ -68,9 +68,9 @@ int	main(int argc, char **argv)
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = ft_handler;
 	pid = ft_atoi(argv[1]);
+	signal = ft_send_string(argv[2]);
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
-	signal = ft_send_string(argv[2]);
 	kill(pid, signal);
 	while(1)
 	{

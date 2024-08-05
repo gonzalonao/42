@@ -14,32 +14,30 @@
 
 void	ft_handler(int signal, siginfo_t *info, void *context)
 {
-	static int				bit;
-	static unsigned char	i;
-	int						pid;
-	int						sig;
+	static int	bit;
+	static char	i;
+	int			pid;
 
-	sig = SIGUSR1;
 	(void)context;
 	pid = info->si_pid;
-	if (bit == 0)
-		i = 0;
 	if (signal == SIGUSR1)
 		i |= (0x01 << bit);
+	else
+		i |= (0x00 << bit);
 	bit++;
 	if (bit == 8)
 	{
-		bit = 0;
 		if (i == '\0')
 		{
 			ft_printf("\n");
-			sig = SIGUSR2;
+			kill(pid, SIGUSR2);
 		}
 		else
 			ft_printf("%c", i);
+		bit = 0;
 		i = 0;
 	}
-	kill(pid, sig);
+	kill(pid, SIGUSR1);
 }
 
 int	main(void)
