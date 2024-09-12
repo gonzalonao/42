@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/19 16:12:10 by ajordan-          #+#    #+#             */
-/*   Updated: 2024/08/08 18:44:10 by glopez-c         ###   ########.fr       */
+/*   Created: 2024/09/11 12:28:19 by glopez-c          #+#    #+#             */
+/*   Updated: 2024/09/11 12:28:29 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "philo.h"
 
-# include <signal.h>
-# include <stdio.h>
-# include "./libft/libft.h"
+time_t	get_time(void)
+{
+	struct timeval	time;
 
-int	ft_error(int n);
-
-#endif
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}

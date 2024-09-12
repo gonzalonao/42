@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 19:14:27 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/08/05 19:14:27 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/08/08 19:28:46 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_send_string(char *s)
 	int			signal;
 
 	if (!str && s)
-		str = s;						
+		str = s;
 	if ((str[i] & (0x01 << bit)))
 		signal = SIGUSR1;
 	else
@@ -48,7 +48,7 @@ void	ft_handler(int signal, siginfo_t *info, void *context)
 	}
 	if (signal == SIGUSR2)
 	{
-		ft_printf("\033[31mFull message received by server\033[0m\n");
+		ft_printf("\033[32mFull message received by server\033[0m\n");
 		exit(EXIT_SUCCESS);
 	}
 }
@@ -72,7 +72,7 @@ int	main(int argc, char **argv)
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	kill(pid, signal);
-	while(1)
+	while (1)
 	{
 		pause();
 	}

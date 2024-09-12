@@ -6,7 +6,7 @@
 #    By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 20:01:25 by glopez-c          #+#    #+#              #
-#    Updated: 2024/06/27 19:31:02 by glopez-c         ###   ########.fr        #
+#    Updated: 2024/07/16 16:48:34 by glopez-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,10 +32,10 @@ libft:
 	@make re -C $(LIBFT)
 
 $(NAME_C): ${OBJS_C} libft
-	@${CC} -fsanitize=address ${OBJS_C} -o ${NAME_C} -L$(LIBFT) -lft
+	@${CC} ${OBJS_C} -o ${NAME_C} -L$(LIBFT) -lft
 
 $(NAME_S): ${OBJS_S} libft
-	@${CC} -fsanitize=address ${OBJS_S} -o ${NAME_S} -L$(LIBFT) -lft 
+	@${CC} ${OBJS_S} -o ${NAME_S} -L$(LIBFT) -lft 
 
 clean: 
 	@make fclean -C $(LIBFT)

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/19 16:12:10 by ajordan-          #+#    #+#             */
-/*   Updated: 2024/08/08 18:44:10 by glopez-c         ###   ########.fr       */
+/*   Created: 2024/07/16 16:25:04 by glopez-c          #+#    #+#             */
+/*   Updated: 2024/07/16 16:26:20 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 # define MINITALK_H
 
 # include <signal.h>
-# include <stdio.h>
-# include "./libft/libft.h"
+# include <unistd.h>
+# include <sys/types.h>
 
-int	ft_error(int n);
+
 
 #endif
