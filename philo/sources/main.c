@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:40:15 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/09/11 15:46:44 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/09/12 20:18:07 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ void	free_info(t_info *info)
 	free(info);
 }
 
-
-
 int	start_eating(t_info *info)
 {
 	int	i;
@@ -66,7 +64,7 @@ int	start_eating(t_info *info)
 		}
 		i++;
 	}
-	return (0);
+	return (1);
 }
 
 void	stop_eating(t_info *info)
@@ -80,6 +78,35 @@ void	stop_eating(t_info *info)
 		i++;
 	}
 	free_info(info);
+}
+
+void	death(t_info *info)
+{
+	int	i;
+
+	while (!info->stop)
+	{
+		i = -1;
+		while (++i < info->num_philo)
+		{
+			pthread_mutex_lock(&info->philos[i].last_meal_mutex);
+			if (get_time() - info->philos[i].last_meal > info->time_to_die)
+			{
+				print_action(&info->philos[i], DIED);
+				info->stop = true;
+				pthread_mutex_unlock(&info->philos[i].last_meal_mutex);
+				return ;
+			}
+			pthread_mutex_unlock(&info->philos[i].last_meal_mutex);
+			usleep(100);
+		}
+		i = 0;
+		while (info->must_eat != -1 && i < info->num_philo)
+			if (info->philos[i++].meals < info->must_eat)
+				break ;
+		if (i == info->num_philo)
+			info->stop = true;
+	}
 }
 
 int	main(int argc, char **argv)
@@ -107,6 +134,7 @@ int	main(int argc, char **argv)
 		printf("Error: Failed to start eating\n");
 		return (EXIT_FAILURE);
 	}
+	death(info);
 	stop_eating(info);
 	return (EXIT_SUCCESS);
 }
