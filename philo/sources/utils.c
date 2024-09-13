@@ -6,11 +6,27 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:45:57 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/09/12 20:32:52 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/09/13 12:30:04 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	free_info(t_info *info)
+{
+	int	i;
+
+	i = 0;
+	while (i < info->num_philo)
+	{
+		pthread_mutex_destroy(&info->forks[i]);
+		i++;
+	}
+	free(info->forks);
+	free(info->philos);
+	pthread_mutex_destroy(&info->print_mutex);
+	free(info);
+}
 
 int	is_only_digits(char *str)
 {

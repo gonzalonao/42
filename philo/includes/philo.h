@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:56:09 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/09/12 20:16:02 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/09/13 13:28:01 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_philos
 {
 	pthread_t		thread;
 	time_t			last_meal;
-	pthread_mutex_t	last_meal_mutex;
+	pthread_mutex_t	meal_mutex;
 	unsigned int	id;
 	int				meals;
 	unsigned int	forks[2];
@@ -68,5 +68,6 @@ void	free_info(t_info *info);
 void	*philo_life(void *philo);
 time_t	get_time(void);
 void	print_action(t_philos *philo, t_action action);
+void	death(t_info *info);
 
 #endif

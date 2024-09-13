@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:48:35 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/09/12 19:48:17 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/09/13 13:54:38 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,17 @@ void	eat_sleep(t_philos *philo)
 	print_action(philo, FORK);
 	pthread_mutex_lock(&philo->info->forks[philo->forks[1]]);
 	print_action(philo, FORK);
-
 	print_action(philo, EAT);
-
-	pthread_mutex_lock(&philo->last_meal_mutex);
+	pthread_mutex_lock(&philo->meal_mutex);
 	philo->last_meal = get_time();
-	pthread_mutex_unlock(&philo->last_meal_mutex);
-
+	pthread_mutex_unlock(&philo->meal_mutex);
 	ft_sleep(philo->info, philo->info->time_to_eat);
-
+	pthread_mutex_lock(&philo->meal_mutex);
 	philo->meals++;
-
+	pthread_mutex_unlock(&philo->meal_mutex);
 	print_action(philo, SLEEP);
-
 	pthread_mutex_unlock(&philo->info->forks[philo->forks[0]]);
 	pthread_mutex_unlock(&philo->info->forks[philo->forks[1]]);
-
 	ft_sleep(philo->info, philo->info->time_to_sleep);
 }
 
@@ -83,15 +78,22 @@ void	*philo_life(void *data)
 	// pthread_mutex_unlock(&philo->info->print_mutex);
 	if (philo->info->must_eat == 0)
 		return (NULL);
-	pthread_mutex_lock(&philo->last_meal_mutex);
+	pthread_mutex_lock(&philo->meal_mutex);
 	philo->last_meal = philo->info->start;
-	pthread_mutex_unlock(&philo->last_meal_mutex);
+	pthread_mutex_unlock(&philo->meal_mutex);
 	if (philo->info->time_to_die == 0)
 		return (NULL);
 	if (philo->info->num_philo == 1)
 		return (one_philo(philo));
-	// else if (philo->id % 2)
-	// 	think(philo, true);
+	// else if (philo->id % 2 == 1)
+	// {
+	// 	print_action(philo, THINK);
+	//  	ft_sleep(philo->info,
+	// 		(philo->info->time_to_die - (get_time() - philo->info->start) - philo->info->time_to_eat) / 2);
+	// 	pthread_mutex_lock(&philo->info->print_mutex);
+	// 	printf("%i wait:%ld\n", philo->id + 1, (philo->info->time_to_die - (get_time() - philo->info->start) - philo->info->time_to_eat) / 2);
+	// 	pthread_mutex_unlock(&philo->info->print_mutex);
+	// }
 	while (!routine_stop(philo->info))
 	{
 		eat_sleep(philo);
