@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 12:02:44 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/09/17 20:27:25 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/09/17 20:30:07 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	check_philos_meals(t_info *info)
 	if (i == info->num_philo)
 	{
 		pthread_mutex_lock(&info->stop_mutex);
-		//printf("All philosophers have eaten %d times\nnumphilo:%d times_ate%d\n", info->must_eat, info->num_philo, info->philos[1].meals);
+		printf("All philosophers have eaten %d times\nnumphilo:%d times_ate%d\n", info->must_eat, info->num_philo, info->philos[1].meals);
 		info->stop = true;
 		fflush(stdout);
 		pthread_mutex_unlock(&info->stop_mutex);
