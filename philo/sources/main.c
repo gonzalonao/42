@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:40:15 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/09/13 12:29:47 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/09/17 20:14:18 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,16 @@ int	start_eating(t_info *info)
 		if (pthread_create(&info->philos[i].thread,
 				NULL, &philo_life, &info->philos[i]))
 		{
+			pthread_mutex_lock(&info->stop_mutex);
+			info->stop = true;
+			pthread_mutex_unlock(&info->stop_mutex);
 			free_info(info);
-			printf("Error: Failed to create thread\n");
-			return (0);
+			write(2, "Error: Fatal error when creating thread\n", 40);
+			return (i);
 		}
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 void	stop_eating(t_info *info)
@@ -67,15 +70,17 @@ void	stop_eating(t_info *info)
 
 int	start_routine(t_info *info)
 {
-	if (!start_eating(info))
+	int	i;
+
+	i = start_eating(info);
+	if (i)
 	{
-		printf("Error: Failed to start eating\n");
+		while (--i)
+			pthread_join(info->philos[i].thread, NULL);
 		return (EXIT_FAILURE);
 	}
-	death(info);
 	stop_eating(info);
 	return (EXIT_SUCCESS);
-	return (1);
 }
 
 int	main(int argc, char **argv)
@@ -84,18 +89,18 @@ int	main(int argc, char **argv)
 
 	if (argc != 5 && argc != 6)
 	{
-		printf("%s\n", "Cambiar error");
+		write(2, "Error: Wrong number of arguments\n", 35);
 		return (EXIT_FAILURE);
 	}
 	if (!validate_args(argc, argv))
 	{
-		printf("Error: Invalid arguments\n");
+		write(2, "Error: Invalid arguments\n", 25);
 		return (EXIT_FAILURE);
 	}
 	info = init_info(argc, argv);
 	if (!info)
 	{
-		printf("Error: Failed info init\n");
+		write(2, "Error: Fatal error when initializing\n", 37);
 		return (EXIT_FAILURE);
 	}
 	if (start_routine(info) == EXIT_FAILURE)

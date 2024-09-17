@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:40:20 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/09/12 18:35:09 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:49:17 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,13 @@ int	init_philos(t_info *info)
 		info->philos[i].dead = false;
 		info->philos[i].info = info;
 		assign_forks(&info->philos[i], info);
+		if (pthread_mutex_init(&info->philos[i].meal_mutex, NULL))
+		{
+			while (--i >= 0)
+				pthread_mutex_destroy(&info->philos[i].meal_mutex);
+			free(info->philos);
+			return (0);
+		}
 		i++;
 	}
 	return (1);
@@ -103,6 +110,14 @@ t_info	*init_info(int argc, char **argv)
 	if (!init_forks(info))
 	{
 		pthread_mutex_destroy(&info->print_mutex);
+		free(info->philos);
+		free(info);
+		return (NULL);
+	}
+	if (pthread_mutex_init(&info->stop_mutex, NULL))
+	{
+		pthread_mutex_destroy(&info->print_mutex);
+		free(info->forks);
 		free(info->philos);
 		free(info);
 		return (NULL);

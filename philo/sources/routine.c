@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:48:35 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/09/13 13:54:38 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/09/17 20:24:52 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	ft_sleep(t_info *info, time_t time)
 	}
 }
 
-
 void	eat_sleep(t_philos *philo)
 {
 	pthread_mutex_lock(&philo->info->forks[philo->forks[0]]);
@@ -53,9 +52,13 @@ void	eat_sleep(t_philos *philo)
 	philo->meals++;
 	pthread_mutex_unlock(&philo->meal_mutex);
 	print_action(philo, SLEEP);
+	check_philos_meals(philo->info);
+	check_philos_death(philo->info);
 	pthread_mutex_unlock(&philo->info->forks[philo->forks[0]]);
 	pthread_mutex_unlock(&philo->info->forks[philo->forks[1]]);
 	ft_sleep(philo->info, philo->info->time_to_sleep);
+	check_philos_meals(philo->info);
+	print_action(philo, THINK);
 }
 
 void	*one_philo(t_philos *philo)
@@ -73,9 +76,6 @@ void	*philo_life(void *data)
 	t_philos	*philo;
 
 	philo = (t_philos *)data;
-	// pthread_mutex_lock(&philo->info->print_mutex);
-	// printf("[%ld] Philo %d created\n", get_time() - philo->info->start, philo->id + 1);
-	// pthread_mutex_unlock(&philo->info->print_mutex);
 	if (philo->info->must_eat == 0)
 		return (NULL);
 	pthread_mutex_lock(&philo->meal_mutex);
@@ -85,20 +85,17 @@ void	*philo_life(void *data)
 		return (NULL);
 	if (philo->info->num_philo == 1)
 		return (one_philo(philo));
-	// else if (philo->id % 2 == 1)
-	// {
-	// 	print_action(philo, THINK);
-	//  	ft_sleep(philo->info,
-	// 		(philo->info->time_to_die - (get_time() - philo->info->start) - philo->info->time_to_eat) / 2);
-	// 	pthread_mutex_lock(&philo->info->print_mutex);
-	// 	printf("%i wait:%ld\n", philo->id + 1, (philo->info->time_to_die - (get_time() - philo->info->start) - philo->info->time_to_eat) / 2);
-	// 	pthread_mutex_unlock(&philo->info->print_mutex);
-	// }
+	else if (philo->id % 2 == 1)
+	{
+		print_action(philo, THINK);
+		ft_sleep(philo->info, (philo->info->time_to_die - (get_time()
+					- philo->info->start) - philo->info->time_to_eat) / 2);
+		pthread_mutex_lock(&philo->info->print_mutex);
+		pthread_mutex_unlock(&philo->info->print_mutex);
+	}
 	while (!routine_stop(philo->info))
 	{
 		eat_sleep(philo);
-		print_action(philo, THINK);
-		//think_routine(philo, false);
 	}
 	return (NULL);
 }

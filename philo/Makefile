@@ -1,5 +1,5 @@
 NAME	= philo
-CC		= gcc
+CC		= cc
 CFLAGS	= -Werror -Wall -Wextra -pthread
 
 SRC_PATH = ./sources/

@@ -1,0 +1,15 @@
+
+0 4 is thinking                     . ERROR: WOKE UP EARLY.
+                                    . 4 has been sleeping only 0 ms.
+                                    . Time to sleep: 200
+                                    . ERROR: INVALID TRANSITION
+                                    . Expected "has taken a fork" or "died".
+0 2 is thinking                     . ERROR: WOKE UP EARLY.
+                                    . 2 has been sleeping only 0 ms.
+                                    . Time to sleep: 200
+                                    . ERROR: INVALID TRANSITION
+                                    . Expected "has taken a fork" or "died".
+5005 3 has taken a fork             . ERROR: ALL PHILOSOPHERS ATE.
+5005 3 is eating                    . ERROR: ALL PHILOSOPHERS ATE.
+5005 5 is thinking                  . ERROR: ALL PHILOSOPHERS ATE.
+5005 5 has taken a fork             . ERROR: ALL PHILOSOPHERS ATE.
