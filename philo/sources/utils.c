@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:45:57 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/09/17 19:53:04 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:27:20 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	philo_atoi(const char *str)
 
 void	print_action(t_philos *philo, t_action action)
 {
-	if (action != DIED && action != SLEEP)
+	if (action != DIED)
 		check_philos_death(philo->info);
 	pthread_mutex_lock(&philo->info->stop_mutex);
 	if (philo->info->stop)
@@ -71,8 +71,8 @@ void	print_action(t_philos *philo, t_action action)
 		printf("%ld %d has taken a fork\n",
 			get_time() - philo->info->start, philo->id + 1);
 	else if (action == EAT)
-		printf("%ld %d is eating %d\n",
-			get_time() - philo->info->start, philo->id + 1, philo->meals + 1);
+		printf("%ld %d is eating\n",
+			get_time() - philo->info->start, philo->id + 1);
 	else if (action == SLEEP)
 		printf("%ld %d is sleeping\n",
 			get_time() - philo->info->start, philo->id + 1);

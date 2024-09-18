@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:48:35 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/09/17 20:24:52 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:32:56 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,9 @@ void	*philo_life(void *data)
 		return (one_philo(philo));
 	else if (philo->id % 2 == 1)
 	{
-		print_action(philo, THINK);
+		//print_action(philo, THINK);
 		ft_sleep(philo->info, (philo->info->time_to_die - (get_time()
 					- philo->info->start) - philo->info->time_to_eat) / 2);
-		pthread_mutex_lock(&philo->info->print_mutex);
-		pthread_mutex_unlock(&philo->info->print_mutex);
 	}
 	while (!routine_stop(philo->info))
 	{
