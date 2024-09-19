@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:40:15 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/09/19 16:32:56 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/09/17 20:14:18 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ int	start_routine(t_info *info)
 			pthread_join(info->philos[i].thread, NULL);
 		return (EXIT_FAILURE);
 	}
-	death(info);
 	stop_eating(info);
 	return (EXIT_SUCCESS);
 }

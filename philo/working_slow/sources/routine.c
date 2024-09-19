@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:48:35 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/09/19 16:08:22 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:32:56 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,16 @@ void	eat_sleep(t_philos *philo)
 	philo->last_meal = get_time();
 	pthread_mutex_unlock(&philo->meal_mutex);
 	ft_sleep(philo->info, philo->info->time_to_eat);
-	print_action(philo, SLEEP);
 	pthread_mutex_lock(&philo->meal_mutex);
 	philo->meals++;
 	pthread_mutex_unlock(&philo->meal_mutex);
+	print_action(philo, SLEEP);
 	check_philos_meals(philo->info);
+	check_philos_death(philo->info);
 	pthread_mutex_unlock(&philo->info->forks[philo->forks[0]]);
 	pthread_mutex_unlock(&philo->info->forks[philo->forks[1]]);
 	ft_sleep(philo->info, philo->info->time_to_sleep);
+	check_philos_meals(philo->info);
 	print_action(philo, THINK);
 }
 
@@ -85,6 +87,7 @@ void	*philo_life(void *data)
 		return (one_philo(philo));
 	else if (philo->id % 2 == 1)
 	{
+		//print_action(philo, THINK);
 		ft_sleep(philo->info, (philo->info->time_to_die - (get_time()
 					- philo->info->start) - philo->info->time_to_eat) / 2);
 	}

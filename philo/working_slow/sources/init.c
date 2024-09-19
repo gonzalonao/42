@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:40:20 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/09/19 16:43:43 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:49:17 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,10 @@ t_info	*init_info(int argc, char **argv)
 		free(info);
 		return (NULL);
 	}
-	if (!pthread_mutex_init(&info->print_mutex, NULL))
+	if (pthread_mutex_init(&info->print_mutex, NULL))
 	{
-		// free(info->philos);
-		// free(info);
-		free_info(info);
+		free(info->philos);
+		free(info);
 		return (NULL);
 	}
 	if (!init_forks(info))

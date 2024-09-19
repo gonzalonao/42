@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:56:09 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/09/19 16:43:56 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/09/17 18:56:50 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,7 @@ time_t	get_time(void);
 void	print_action(t_philos *philo, t_action action);
 void	death(t_info *info);
 bool	routine_stop(t_info *info);
-int		check_philos_death(t_info *info);
-int		check_philos_meals(t_info *info);
-void	free_info(t_info *info);
+void	check_philos_death(t_info *info);
+void	check_philos_meals(t_info *info);
 
 #endif

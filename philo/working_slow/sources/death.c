@@ -6,13 +6,13 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 12:02:44 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/09/19 16:20:00 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:45:26 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	check_philos_death(t_info *info)
+void	check_philos_death(t_info *info)
 {
 	int	i;
 
@@ -20,21 +20,22 @@ int	check_philos_death(t_info *info)
 	while (++i < info->num_philo)
 	{
 		pthread_mutex_lock(&info->philos[i].meal_mutex);
-		if (get_time() - info->philos[i].last_meal > info->time_to_die)
+		if (get_time() - info->philos[i].last_meal > info->time_to_die
+			&& !routine_stop(info))
 		{
 			pthread_mutex_unlock(&info->philos[i].meal_mutex);
 			print_action(&info->philos[i], DIED);
 			pthread_mutex_lock(&info->stop_mutex);
 			info->stop = true;
 			pthread_mutex_unlock(&info->stop_mutex);
-			return (0);
+			return ;
 		}
 		pthread_mutex_unlock(&info->philos[i].meal_mutex);
+		usleep(100);
 	}
-	return (1);
 }
 
-int	check_philos_meals(t_info *info)
+void	check_philos_meals(t_info *info)
 {
 	int	i;
 
@@ -54,21 +55,5 @@ int	check_philos_meals(t_info *info)
 		pthread_mutex_lock(&info->stop_mutex);
 		info->stop = true;
 		pthread_mutex_unlock(&info->stop_mutex);
-		return (0);
 	}
-	return (1);
-}
-
-void	death(t_info *info)
-{
-	usleep(100);
-	while(!routine_stop(info))
-	{
-		check_philos_death(info);
-		check_philos_meals(info);
-	}
-	// while (check_philos_death(info) && check_philos_meals(info))
-	// {
-	// 	continue ;
-	// }
 }
