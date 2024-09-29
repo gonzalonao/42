@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:40:20 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/09/19 16:43:43 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/09/29 13:21:39 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,14 @@ int	init_forks(t_info *info)
 		return (0);
 	while (i < info->num_philo)
 	{
-		if (pthread_mutex_init(&info->forks[i++], NULL))
+		if (pthread_mutex_init(&info->forks[i], NULL))
 		{
 			while (--i >= 0)
 				pthread_mutex_destroy(&info->forks[i]);
 			free(info->forks);
 			return (0);
 		}
+		i++;
 	}
 	return (1);
 }
@@ -96,32 +97,13 @@ t_info	*init_info(int argc, char **argv)
 		info->must_eat = philo_atoi(argv[5]);
 	else
 		info->must_eat = -1;
-	if (!init_philos(info))
-	{
-		free(info);
-		return (NULL);
-	}
-	if (!pthread_mutex_init(&info->print_mutex, NULL))
-	{
-		// free(info->philos);
-		// free(info);
-		free_info(info);
-		return (NULL);
-	}
-	if (!init_forks(info))
-	{
-		pthread_mutex_destroy(&info->print_mutex);
-		free(info->philos);
-		free(info);
-		return (NULL);
-	}
 	if (pthread_mutex_init(&info->stop_mutex, NULL))
-	{
-		pthread_mutex_destroy(&info->print_mutex);
-		free(info->forks);
-		free(info->philos);
-		free(info);
-		return (NULL);
-	}
+		free_info(&info, 0);
+	if (pthread_mutex_init(&info->print_mutex, NULL))
+		free_info(&info, 1);
+	if (!init_forks(info))
+		free_info(&info, 2);
+	if (!init_philos(info))
+		free_info(&info, 3);
 	return (info);
 }

@@ -1,6 +1,6 @@
 NAME	= philo
 CC		= cc
-CFLAGS	= -Werror -Wall -Wextra -pthread
+CFLAGS	= -Werror -Wall -Wextra -pthread -g
 
 SRC_PATH = ./sources/
 OBJ_PATH = ./objects/

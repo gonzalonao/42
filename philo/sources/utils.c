@@ -6,29 +6,11 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:45:57 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/09/19 16:45:36 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/09/20 17:28:42 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-// void	free_info(t_info *info)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < info->num_philo)
-// 	{
-// 		pthread_mutex_destroy(&info->forks[i]);
-// 		pthread_mutex_destroy(&info->philos[i].meal_mutex);
-// 		i++;
-// 	}
-// 	free(info->forks);
-// 	free(info->philos);
-// 	pthread_mutex_destroy(&info->print_mutex);
-// 	pthread_mutex_destroy(&info->stop_mutex);
-// 	free(info);
-// }
 
 int	is_only_digits(char *str)
 {
@@ -57,8 +39,6 @@ int	philo_atoi(const char *str)
 
 void	print_action(t_philos *philo, t_action action)
 {
-	// if (action != DIED)
-	// 	check_philos_death(philo->info);
 	pthread_mutex_lock(&philo->info->print_mutex);
 	if (routine_stop(philo->info))
 	{
@@ -69,8 +49,8 @@ void	print_action(t_philos *philo, t_action action)
 		printf("%ld %d has taken a fork\n",
 			get_time() - philo->info->start, philo->id + 1);
 	else if (action == EAT)
-		printf("%ld %d is eating %d\n",
-			get_time() - philo->info->start, philo->id + 1, philo->meals + 1);
+		printf("%ld %d is eating\n",
+			get_time() - philo->info->start, philo->id + 1);
 	else if (action == SLEEP)
 		printf("%ld %d is sleeping\n",
 			get_time() - philo->info->start, philo->id + 1);

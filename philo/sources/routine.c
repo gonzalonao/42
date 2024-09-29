@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:48:35 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/09/19 16:08:22 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/09/20 17:15:34 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ void	*philo_life(void *data)
 					- philo->info->start) - philo->info->time_to_eat) / 2);
 	}
 	while (!routine_stop(philo->info))
-	{
 		eat_sleep(philo);
-	}
 	return (NULL);
 }

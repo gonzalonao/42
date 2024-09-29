@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:27:14 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/06/18 14:26:13 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/09/28 17:43:33 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int	main(int argc, char **argv)
 	char	**split;
 	t_stack	*stack_a;
 
+	if (argc == 2 && !argv[1][0])
+		ft_error();
 	if (!ft_check_args(argv, argc))
 		ft_error();
 	split = ft_get_split(argv, argc);

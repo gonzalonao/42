@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:40:15 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/09/19 16:32:56 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/09/29 12:59:32 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	start_eating(t_info *info)
 			pthread_mutex_lock(&info->stop_mutex);
 			info->stop = true;
 			pthread_mutex_unlock(&info->stop_mutex);
-			free_info(info);
+			free_info(&info, 4);
 			write(2, "Error: Fatal error when creating thread\n", 40);
 			return (i);
 		}
@@ -65,7 +65,7 @@ void	stop_eating(t_info *info)
 		pthread_join(info->philos[i].thread, NULL);
 		i++;
 	}
-	free_info(info);
+	free_info(&info, 4);
 }
 
 int	start_routine(t_info *info)
@@ -90,7 +90,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 5 && argc != 6)
 	{
-		write(2, "Error: Wrong number of arguments\n", 35);
+		write(2, "Error: Wrong number of arguments\n", 33);
 		return (EXIT_FAILURE);
 	}
 	if (!validate_args(argc, argv))
@@ -108,4 +108,3 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
-

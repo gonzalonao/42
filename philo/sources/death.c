@@ -6,7 +6,7 @@
 /*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 12:02:44 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/09/19 16:20:00 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/09/20 17:29:21 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,9 @@ int	check_philos_meals(t_info *info)
 void	death(t_info *info)
 {
 	usleep(100);
-	while(!routine_stop(info))
+	while (!routine_stop(info))
 	{
 		check_philos_death(info);
 		check_philos_meals(info);
 	}
-	// while (check_philos_death(info) && check_philos_meals(info))
-	// {
-	// 	continue ;
-	// }
 }
