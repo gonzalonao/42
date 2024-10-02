@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: glopez-c <glopez-c@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 11:45:13 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/01/16 15:14:30 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/10/02 19:17:16 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+/*	Converts the initial portion of the string str to int representation.
+ *		- Ignores whitespaces.
+ *		- Considers the sign of the number.
+ *		- Stops reading when a non-digit character is found.
+ *		- Returns the result multiplied by the sign.
+*/
 
 int	ft_atoi(const char *str)
 {

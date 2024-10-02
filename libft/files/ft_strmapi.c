@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: glopez-c <glopez-c@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 18:07:45 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/01/16 19:11:35 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/10/02 20:00:20 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+/* Applies the function ’f’ to each character of the string ’s’ to create
+ * a new string resulting from successive applications of ’f’.
+ *		- s: The string to map.
+ *		- f: The function to apply to each character.
+ * Returns the string created from the successive applications of ’f’, 
+ * or NULL if the allocation fails.
+ */
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {

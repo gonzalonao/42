@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: glopez-c <glopez-c@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 19:34:19 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/01/16 17:01:59 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/10/02 19:42:34 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+/* Copies n bytes from memory area src to memory area dst.
+ * The memory areas must not overlap.
+ *		- dst: The memory area to copy to.
+ *		- src: The memory area to copy from.
+ *		- n: The number of bytes to copy.
+ * Returns the original value of dst.
+ */
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {

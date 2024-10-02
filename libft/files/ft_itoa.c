@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: glopez-c <glopez-c@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:11:22 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/01/16 16:12:36 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/10/02 20:33:19 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+/* Allocates and returns a string representing the integer received as an
+ * argument. Negative numbers are handled.
+ *		- n: The integer to be converted.
+ * Returns the string representing the integer or NULL if the allocation fails.
+ */
+
+
+/* Returns the number of digits in a number. */
 
 static int	ft_nbrlen(long n)
 {
@@ -29,6 +38,8 @@ static int	ft_nbrlen(long n)
 	}
 	return (i + 1);
 }
+
+/* Fills the string with the digits of the number. */
 
 static void	ft_fillstrlong(char *str, long n, size_t *i)
 {

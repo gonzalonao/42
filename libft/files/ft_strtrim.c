@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: glopez-c <glopez-c@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: glopez-c <glopez-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 13:55:31 by glopez-c          #+#    #+#             */
-/*   Updated: 2024/01/16 19:08:42 by glopez-c         ###   ########.fr       */
+/*   Updated: 2024/10/02 19:53:48 by glopez-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+/* Allocates (with malloc(3)) and returns a copy of ’s1’ with the characters
+ * specified in ’set’ removed from the beginning and the end of the string.
+ *		- s1: The string to be trimmed.
+ *		- set: The reference set of characters to trim.
+ * Returns the trimmed string or NULL if the allocation fails.
+ */
+
+
+/* Checks if a character is in a set of characters. */
 
 static int	isset(const char c, const char *set)
 {
